@@ -4,6 +4,10 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 
 import com.nashss.se.Citrus.dynamodb.models.User;
+import com.nashss.se.Citrus.exceptions.InvalidAttributeException;
+import com.nashss.se.Citrus.exceptions.UserNotFoundException;
+import com.nashss.se.Citrus.metrics.MetricsConstants;
+import com.nashss.se.Citrus.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,9 +28,8 @@ public class UserDao {
     }
     public User getUser(String userId){
         User user = dynamoDBMapper.load(User.class, userId, userId, null);
-
         if(user == null){
-            metricsPublisher.addCount(MetricsConstants.GETPROFILE_PROFILENOTFOUND_COUNT, 1);
+            metricsPublisher.addCount(MetricsConstants.GETUSER_PROFILENOTFOUND_COUNT, 1);
             throw new UserNotFoundException("User not found");
         }
 

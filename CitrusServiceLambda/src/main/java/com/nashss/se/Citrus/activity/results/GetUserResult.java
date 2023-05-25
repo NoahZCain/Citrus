@@ -19,18 +19,20 @@ public class GetUserResult {
                 "userModel=" + userModel +
                 '}';
     }
-    public static class Builder{
+    public static class Builder {
         private UserModel userModel;
 
-        public Builder withUserModel(UserModel userModel){
+        public Builder withUserModel(UserModel userModel) {
             this.userModel = userModel;
             return this;
         }
-        public GetUserResult build(){
-            return  new GetUserResult(userModel);
+
+        public GetUserResult build() {
+            return new GetUserResult(userModel);
         }
+    }
         public static Builder builder(){
             return new Builder();
         }
     }
-}
+

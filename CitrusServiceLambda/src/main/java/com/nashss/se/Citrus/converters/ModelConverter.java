@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 public class ModelConverter {
 
-    private final S.Logger log = LogManager.getLogger();
+    private final Logger log = LogManager.getLogger();
 
     public UserModel toUserModel(User user){
         return UserModel.builder()

@@ -4,6 +4,9 @@ package com.nashss.se.Citrus.activity;
 
 import javax.inject.Inject;
 
+import com.nashss.se.Citrus.activity.requests.GetUserRequest;
+import com.nashss.se.Citrus.activity.results.GetUserResult;
+import com.nashss.se.Citrus.converters.ModelConverter;
 import com.nashss.se.Citrus.dynamodb.UserDao;
 import com.nashss.se.Citrus.dynamodb.models.User;
 import com.nashss.se.Citrus.models.UserModel;
