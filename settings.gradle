@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'Citrus'
-include('app')
+include('CitrusServiceLambda')
