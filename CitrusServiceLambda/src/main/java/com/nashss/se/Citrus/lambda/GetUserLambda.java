@@ -6,7 +6,7 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.nashss.se.Citrus.activity.requests.GetUserRequest;
 import com.nashss.se.Citrus.activity.results.GetUserResult;
 
-public class GetUserLambda extends LambdaActivityRunner<GetUserRequest, GetUserResult> implements RequestHandler<AuthenticatedLambdaRequest<GetUserRequest>, LambdaResponse> {
+public class GetUserLambda extends LambdaActivityRunner<GetUserRequest, GetUserResult> implements RequestHandler<LambdaRequest<GetUserRequest>, LambdaResponse> {
 
 
     /**
@@ -17,7 +17,7 @@ public class GetUserLambda extends LambdaActivityRunner<GetUserRequest, GetUserR
      * @return The Lambda Function output
      */
     @Override
-    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetUserRequest> input, Context context) {
+    public LambdaResponse handleRequest(LambdaRequest<GetUserRequest> input, Context context) {
         return super.runActivity(
                 () -> input.fromPath(path ->
                         GetUserRequest.builder()

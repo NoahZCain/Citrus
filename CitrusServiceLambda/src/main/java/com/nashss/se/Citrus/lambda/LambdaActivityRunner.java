@@ -1,5 +1,6 @@
 package com.nashss.se.Citrus.lambda;
 
+import com.nashss.se.Citrus.dependency.DaggerServiceComponent;
 import com.nashss.se.Citrus.dependency.ServiceComponent;
 
 import org.apache.logging.log4j.LogManager;
