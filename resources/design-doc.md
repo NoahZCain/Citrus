@@ -53,9 +53,6 @@ _Describe broadly how you are proposing to solve for the requirements you descri
 
 ## 6.1. Public Models
 
-// ProfileModel
-String userId;
-Set <String> userInterests;
 
 //PlaceOfInterestModel
 String placeName;
@@ -65,11 +62,12 @@ Set<String> accessibilityInfo;
 Set<String> placeTypes;
 
 //UserModel
+String userId
 String fullName;
 String emailAddress;
 String gender;
 String dateOfBirth;
-
+Set <String> userInterests;
 
 ## 6.2.  _Get / View Profile
 * Accepts 'GET' RQs to /profile/:userId

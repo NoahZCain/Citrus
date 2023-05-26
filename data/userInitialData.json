@@ -1,0 +1,17 @@
+{
+  "user": [
+    {
+      "PutRequest": {
+        "Item": {
+          "userId": {"S": "noahcaintest@gmail.com"},
+          "firstName": {"S": "Noah"},
+          "lastName": {"S": "Cain"},
+          "gender": {"S": "Non-Binary"},
+          "dateOfBirth": {"S": "1995-06-30"},
+          "userInterests": {"SS":
+          ["gaming", "cats", "biking", "cooking"]}
+        }
+      }
+    }
+  ]
+}
