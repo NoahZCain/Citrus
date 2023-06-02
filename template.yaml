@@ -226,7 +226,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CitrusServiceLambda
-      Handler: com.nashss.se.citrusservicelambda.lambda.GetUserLambda::handleRequest
+      Handler: com.nashss.se.citrusservice.lambda.GetUserLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -235,10 +235,10 @@ Resources:
         Variables:
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
       Events:
-        CitrusServiceLambda:
+        CitrusService:
           Type: Api
           Properties:
-            Path: /user/{id}
+            Path: /user/{userId}
             Method: get
             Auth:
               Authorizer: 'NONE'

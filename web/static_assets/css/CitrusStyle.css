@@ -1,0 +1,65 @@
+.Citrus{
+    text-align: center;
+  }
+  
+ 
+  .logo {
+    width: 100px;
+    height: 100px;
+    background-image: url('/images/Citrus-Icon-removebg-preview.png'); /* Replace with the path to your logo image */
+    background-size: cover;
+    background-color: transparent;
+    animation: spin 6s linear infinite; /* Adjust animation duration and timing as needed */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .header {
+    background-color: #61dafb;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: rgb(29, 29, 212);
+  }
+  
+  link {
+    color: #61dafb;
+  }
+  .name{
+    color: black;
+  }
+  .occupation{
+    color: black;
+  }
+  body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+  
