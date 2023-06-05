@@ -1,0 +1,16 @@
+{
+  "place": [
+    {
+      "PutRequest": {
+        "Item": {
+          "placeId": {"S": "001Capstone"},
+          "placeName": {"S": "Catio"},
+          "placeAddress": {"S": "2416 Music Valley Dr"},
+          "accessibilityTags": {"SS":
+          ["ramp", "braille", "low-Stimulation"]},
+          "placeTypes": {"S": "food"}
+        }
+      }
+    }
+  ]
+}
