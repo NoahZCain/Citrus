@@ -6,10 +6,10 @@
   .logo {
     width: 100px;
     height: 100px;
-    background-image: url('/images/Citrus-Icon-removebg-preview.png'); /* Replace with the path to your logo image */
+    background-image: url('/images/Citrus-Icon-removebg-preview.png');  
     background-size: cover;
     background-color: transparent;
-    animation: spin 6s linear infinite; /* Adjust animation duration and timing as needed */
+    animation: spin 6s linear infinite;  
   }
   
   @keyframes spin {

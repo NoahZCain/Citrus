@@ -17,87 +17,10 @@
 <header class="header" id="header">
     <div class="logo"></div>
         <H1 class="logoCitrus text-center"><strong>Citrus Home</strong></H1>
-    <button  type="button" class="btn btn-light-custom logout-btn" id="logout">Logout</button>
+    <button  type="button" class="btn btn-light-custom logout-btn" id="login">Login</button>
 </header>
 <body>
-<div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0" id="profilePic">
-                            <span class="ms-1 d-none d-sm-inline"><h3 class="names" id="names"> First & Last Name</h3></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-4 py-4 align-middle" id="allEvents">
-                            Browse All Events<span class="tooltip"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-4 py-4 align-middle" id="createEvents">
-                            Create An Event<span class="tooltip"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-4 py-4 align-middle" id="allFollowing">
-                            You Are Following<span class="tooltip"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-4 py-4 align-middle" id="door">
-                            Log Out<span class="tooltip"></span>
-                        </a>
-                    </li>
-                </ul>
 
-                <hr>
-            </div>
-        </div>
-
-        <div class="col py-3 page-body-background">
-            <h3 class="text-center">*** Upcoming Events *** </h3>
-            <table class="table table-bordered table-striped" id="Toptable">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-center">Event ID</th>
-                    <th scope="col" class="text-center">Event Name</th>
-                    <th scope="col" class="text-center">Date & Time</th>
-                    <th scope="col" class="text-center">Address</th>
-                    <th scope="col" class="text-center">Organizer</th>
-                </tr>
-                </thead>
-                <tbody id="event-list">
-                </tbody>
-            </table>
-            <h3 class="text-center">*** Personal Events *** </h3>
-
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th scope="col" class="text-center">Event ID</th>
-                    <th scope="col" class="text-center">Event Name</th>
-                    <th scope="col" class="text-center">Date & Time</th>
-                    <th scope="col" class="text-center">Address</th>
-                    <th scope="col" class="text-center">Organizer</th>
-                </tr>
-                </thead>
-                <tbody id="created-event-list">
-                <p class="text-center" id="personalEventResults"></p>
-                </tbody>
-            </table>
-            <hr>
-            <div class="row py-3">
-                <h3 class="text-center pb-5">*** Following *** </h3>
-                <div>
-                    <p class="text-center" id="allFollowingListText"></p>
-                    <div class="container d-flex flex-wrap justify-content-center" id="allFollowingList"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
