@@ -3,7 +3,7 @@
     {
       "PutRequest": {
         "Item": {
-          "userId": {"S": "noahcaintest@gmail.com"},
+          "userId": {"S": "noahzcain@gmail.com"},
           "firstName": {"S": "Noah"},
           "lastName": {"S": "Cain"},
           "gender": {"S": "Non-Binary"},
