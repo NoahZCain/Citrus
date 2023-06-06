@@ -4,11 +4,11 @@
       "PutRequest": {
         "Item": {
           "placeId": {"S": "001Capstone"},
-          "placeName": {"S": "Catio"},
-          "placeAddress": {"S": "2416 Music Valley Dr"},
+          "placeTypes": {"S": "food"},
           "accessibilityTags": {"SS":
           ["ramp", "braille", "low-Stimulation"]},
-          "placeTypes": {"S": "food"}
+          "placeAddress": {"S": "2416 Music Valley Dr"},
+          "placeName": {"S": "Catio"}
         }
       }
     }

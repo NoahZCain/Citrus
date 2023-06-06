@@ -240,8 +240,7 @@ Resources:
           Properties:
             Path: /user/{userId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
 
   GetPlaceLambda:
     Type: AWS::Serverless::Function
@@ -262,8 +261,7 @@ Resources:
           Properties:
             Path: /place/{placeId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
 #  SearchPlaylistsLambda:
 #    Type: AWS::Serverless::Function
 #    Properties:
