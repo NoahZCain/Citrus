@@ -21,6 +21,7 @@ class ViewUser extends BindingClass{
     mount(){
         // document.getElementById('logout').addEventListener('click',this.redirectHomePage);
         this.client = new CitrusClient();
+        
         document.getElementById('logout').addEventListener('click',this.logout);
         this.clientLoaded().then(() => {
             this.addName();

@@ -3,14 +3,14 @@ package com.nashss.se.citrusservice.models;
 import java.util.Objects;
 import java.util.Set;
 
-public class PlacesModel {
+public class PlaceModel {
     private final String placeId;
     private final String placeName;
     private final String placeAddress;
     private final Set<String> accessibilityInfo;
     private final Set<String> placeTypes;
 
-    public PlacesModel(String placeId,String placeName,String placeAddress, Set<String> accessibilityInfo, Set<String> placeTypes){
+    public PlaceModel(String placeId, String placeName, String placeAddress, Set<String> accessibilityInfo, Set<String> placeTypes){
         this.placeId = placeId;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
@@ -43,7 +43,7 @@ public class PlacesModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PlacesModel that = (PlacesModel) o;
+        PlaceModel that = (PlaceModel) o;
 
         if (!Objects.equals(placeId, that.placeId)) return false;
         if (!placeName.equals(that.placeName)) return false;
@@ -62,8 +62,8 @@ public class PlacesModel {
         return result;
     }
 
-    public static PlacesModel.Builder builder(){
-        return new PlacesModel.Builder();
+    public static PlaceModel.Builder builder(){
+        return new PlaceModel.Builder();
     }
 
     public static class Builder {
@@ -93,8 +93,8 @@ public class PlacesModel {
             this.placeTypes = placeTypes;
             return this;
         }
-        public PlacesModel build(){
-            return new PlacesModel(placeId,placeName,placeAddress,accessibilityInfo,placeTypes);
+        public PlaceModel build(){
+            return new PlaceModel(placeId,placeName,placeAddress,accessibilityInfo,placeTypes);
         }
 
 
