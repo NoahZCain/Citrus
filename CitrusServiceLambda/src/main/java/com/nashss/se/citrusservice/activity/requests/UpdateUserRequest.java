@@ -22,11 +22,9 @@ public class UpdateUserRequest {
         this.dateOfBirth = dateOfBirth;
         this.userInterests = userInterests;
     }
-
-    public String getUserId() {
+    public String getUserId(){
         return userId;
     }
-
     public String getFirstName() {
         return firstName;
     }
@@ -50,7 +48,6 @@ public class UpdateUserRequest {
     @Override
     public String toString() {
         return "UpdateUserRequest{" +
-                "userId='" + userId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +

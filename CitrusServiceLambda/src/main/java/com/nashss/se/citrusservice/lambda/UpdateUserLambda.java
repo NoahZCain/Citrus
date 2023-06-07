@@ -24,7 +24,7 @@ public class UpdateUserLambda extends LambdaActivityRunner<UpdateUserRequest, Up
                     String userIdFromPath = input.getPathParameters().get("userId");
 
                     return UpdateUserRequest.builder()
-                            .withUserId(unAuthenticatedRequest.getUserId())
+                            .withUserId(userIdFromPath)
                             .withFirstName(unAuthenticatedRequest.getFirstName())
                             .withLastName(unAuthenticatedRequest.getLastName())
                             .withGender(unAuthenticatedRequest.getGender())
