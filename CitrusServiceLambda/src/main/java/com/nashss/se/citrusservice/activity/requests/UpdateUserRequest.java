@@ -61,4 +61,41 @@ public class UpdateUserRequest {
     public static Builder builder(){
         return new Builder();
     }
+    @JsonPOJOBuilder
+    public static class Builder{
+        private String userId;
+        private String firstName;
+        private String lastName;
+        private String gender;
+        private String dateOfBirth;
+        private Set<String> userInterests;
+
+        public Builder withUserId(String userId){
+            this.userId = userId;
+            return this;
+        }
+        public Builder withFirstName(String firstName){
+            this.firstName = firstName;
+            return this;
+        }
+        public Builder withLastName(String lastName){
+            this.lastName = lastName;
+            return this;
+        }
+        public Builder withGender(String gender){
+            this.gender = gender;
+            return this;
+        }
+        public Builder withDateOfBirth(String dateOfBirth){
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+        public Builder withUserInterests(Set<String> userInterests){
+            this.userInterests = userInterests;
+            return this;
+        }
+        public UpdateUserRequest build(){
+            return new UpdateUserRequest(userId,firstName,lastName,gender,dateOfBirth,userInterests);
+        }
+    }
 }
