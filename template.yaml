@@ -240,8 +240,27 @@ Resources:
           Properties:
             Path: /user/{userId}
             Method: get
-            Auth:
-              Authorizer: 'NONE'
+
+
+  GetPlaceLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: CitrusServiceLambda
+      Handler: com.nashss.se.citrusservice.lambda.GetPlaceLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CitrusService:
+          Type: Api
+          Properties:
+            Path: /place/{placeId}
+            Method: get
 
 #  SearchPlaylistsLambda:
 #    Type: AWS::Serverless::Function
@@ -363,7 +382,7 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "user"
 
-  PlacesTable:
+  PlaceTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -386,7 +405,7 @@ Resources:
           Projection:
             ProjectionType: "ALL"
       BillingMode: "PAY_PER_REQUEST"
-      TableName: "places"
+      TableName: "place"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

@@ -3,13 +3,11 @@ package com.nashss.se.citrusservice.dynamodb.models;
 
 import java.util.Set;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.nashss.se.citrusservice.converters.StringSetConverter;
 
-@DynamoDBTable(tableName = "places")
-public class Places {
+@DynamoDBTable(tableName = "place")
+public class Place {
     private String placeName;
     private String placeId;
     private String placeAddress;
@@ -40,7 +38,7 @@ public class Places {
     public void setPlaceAddress(String placeAddress) {
         this.placeAddress = placeAddress;
     }
-    @DynamoDBAttribute(attributeName = "placeAddress")
+    @DynamoDBAttribute(attributeName = "accessibilityTags")
     public Set<String> getAccessibilityTags() {
         return accessibilityTags;
     }
@@ -48,7 +46,8 @@ public class Places {
     public void setAccessibilityTags(Set<String> accessibilityTags) {
         this.accessibilityTags = accessibilityTags;
     }
-    @DynamoDBIndexRangeKey(globalSecondaryIndexName = "PlaceTypeIndex", attributeName = "placeTypes")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "PlaceTypeIndex", attributeName = "placeTypes")
+    @DynamoDBTypeConverted(converter = StringSetConverter.class)
     public Set<String> getPlaceTypes() {
         return placeTypes;
     }

@@ -7,8 +7,8 @@
 ## 1. Problem Statement
 Often times, people with disabilities find themselves not going out as much due to the lack of
 accessibility information provided by businesses. Citrus aims to improve this by not only recommending  
-the user places based on their specific accessibility needs, but also by certain criteria provided
-by the user(eg. Restaurants,Music Venues etc.). Citrus also aims to alleviate worry by implementing a user based verification/validation functionality to help clarify the accessibility accommodations that places offer.
+the user place based on their specific accessibility needs, but also by certain criteria provided
+by the user(eg. Restaurants,Music Venues etc.). Citrus also aims to alleviate worry by implementing a user based verification/validation functionality to help clarify the accessibility accommodations that place offer.
 
 ## 2. Top Questions to Resolve in Review
 
@@ -24,10 +24,10 @@ _This is where we work backwards from the customer and define what our customers
 
 U1. _As a user I want to be able to create a profile._
 U1.1. _As a user I want to be able to edit my profile._
-U2. _As a user I want to search places near me by general term (restaurant,music etc.)_
-U3. _As a user I want to search places based on accessibility accommodations (filter)_
+U2. _As a user I want to search place near me by general term (restaurant,music etc.)_
+U3. _As a user I want to search place based on accessibility accommodations (filter)_
 U4. _As a user I want to add/verify accessibility tags to a place that is recommended._
-U5._(extension) As a user I want to see what places I have contributed tags to_
+U5._(extension) As a user I want to see what place I have contributed tags to_
 U6._(extension) As a user I want to leave a comment on any extra accessibility information a place might have_
 U7.
 U8.
@@ -90,18 +90,18 @@ Set <String> userInterests;
   list of interests.
 
 ## 6.5 Get PointOfInterest
-* Accepts 'GET' requests to /places/:placeId
+* Accepts 'GET' requests to /place/:placeId
 * Accepts an pointId and Returns the corresponding POI details : placeName, address, type,
   and list of accessibility info tags.
     * If the POI is not found, will throw an 'PlaceNotFoundException'
 
 ## 6.6 Create Accessibility Tags to POI
-* Accepts a 'POST' request to /places/:placeId/createTags/
+* Accepts a 'POST' request to /place/:placeId/createTags/
 * Accepts data to create accessibility tags.
   Returns the new POI, with updated Accessibility Tags.
 
 ## 6.7 Update Accessibility Tags to POI
-* Accepts a 'PUT' request to /places/:placeId/updateTags/
+* Accepts a 'PUT' request to /place/:placeId/updateTags/
 * Accepts data to update the accessibility tags.
   Returns the new POI, with updated Accessibility Tags.
 
