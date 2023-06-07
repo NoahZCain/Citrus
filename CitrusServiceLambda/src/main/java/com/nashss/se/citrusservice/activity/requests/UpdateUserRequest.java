@@ -48,6 +48,7 @@ public class UpdateUserRequest {
     @Override
     public String toString() {
         return "UpdateUserRequest{" +
+                "userId='" + userId +'\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +

@@ -25,14 +25,18 @@ public class UpdateUserLambda extends LambdaActivityRunner<UpdateUserRequest, Up
 
                     return UpdateUserRequest.builder()
                             .withUserId(userIdFromPath)
+
                             .withFirstName(unAuthenticatedRequest.getFirstName())
                             .withLastName(unAuthenticatedRequest.getLastName())
                             .withGender(unAuthenticatedRequest.getGender())
                             .withDateOfBirth(unAuthenticatedRequest.getDateOfBirth())
                             .withUserInterests(unAuthenticatedRequest.getUserInterests())
                             .build();
+
                 },
-                (request, serviceComponent) -> serviceComponent.provideUpdateUserActivity().handleRequest(request)
+                (request, serviceComponent) ->
+
+                    serviceComponent.provideUpdateUserActivity().handleRequest(request)
         );
     }
 }
