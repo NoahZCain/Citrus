@@ -20,6 +20,7 @@ public class GetPlaceActivity {
         this.placeDao = placeDao;
     }
     public GetPlaceResult handleRequest(final GetPlaceRequest getPlaceRequest){
+        System.out.println("NOAH LINE 23 ACTIVITY " +getPlaceRequest.toString());
         log.info("Receive GetPlaceResult {}", getPlaceRequest);
 
         String id = getPlaceRequest.getPlaceId();
