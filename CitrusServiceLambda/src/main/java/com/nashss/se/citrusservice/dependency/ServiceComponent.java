@@ -1,6 +1,7 @@
 package com.nashss.se.citrusservice.dependency;
 
 
+import com.nashss.se.citrusservice.activity.CreateUserActivity;
 import com.nashss.se.citrusservice.activity.UpdateUserActivity;
 
 import com.nashss.se.citrusservice.activity.GetPlaceActivity;
@@ -15,6 +16,6 @@ import com.nashss.se.citrusservice.activity.GetUserActivity;
 public interface ServiceComponent {
     GetUserActivity provideGetUserActivity();
     UpdateUserActivity provideUpdateUserActivity();
-
     GetPlaceActivity provideGetPlaceActivity();
+    CreateUserActivity provideCreateUserActivity();
 }

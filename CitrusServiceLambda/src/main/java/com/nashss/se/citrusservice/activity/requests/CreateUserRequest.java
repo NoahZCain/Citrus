@@ -83,5 +83,20 @@ public class CreateUserRequest {
             this.lastName = lastName;
             return this;
         }
+        public Builder withGender(String gender){
+            this.gender = gender;
+            return this;
+        }
+        public Builder withDateOfBirth(String dateOfBirth){
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+        public Builder withUserInterests(Set<String> userInterests){
+            this.userInterests = userInterests;
+            return this;
+        }
+        public CreateUserRequest build(){
+            return new CreateUserRequest(userId,firstName,lastName,gender,dateOfBirth,userInterests);
+        }
     }
 }

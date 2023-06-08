@@ -23,12 +23,18 @@ public class CreateUserActivity {
     public CreateUserResult handleRequest(final CreateUserRequest createUserRequest) throws InvalidAttributeValueException {
         log.info("Received CreateUserRequest{}", createUserRequest);
 
-        if(createUserRequest.getFirstName() == null || createUserRequest.getFirstName().isEmpty()){
+        if(createUserRequest.getFirstName() == null ||
+                createUserRequest.getFirstName().isEmpty()){
             throw new InvalidAttributeValueException("Name cannot contain illegal characters");
         }
-        User newUser = userDao.saveUser(true,createUserRequest.getUserId(),createUserRequest.getFirstName(),
-                createUserRequest.getLastName(),createUserRequest.getGender(),createUserRequest.getDateOfBirth(),
+        User newUser = userDao.saveUser(true,
+                createUserRequest.getUserId(),
+                createUserRequest.getFirstName(),
+                createUserRequest.getLastName(),
+                createUserRequest.getGender(),
+                createUserRequest.getDateOfBirth(),
                 createUserRequest.getUserInterests());
+
         UserModel userModel = new ModelConverter().toUserModel(newUser);
         return CreateUserResult.builder()
                 .withUser(userModel)
