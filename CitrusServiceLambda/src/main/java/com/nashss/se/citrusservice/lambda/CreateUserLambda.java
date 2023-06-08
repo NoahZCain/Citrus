@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.citrusservice.activity.requests.CreateUserRequest;
 import com.nashss.se.citrusservice.activity.results.CreateUserResult;
 
-public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, CreateUserResult> implements RequestHandler<AuthenticatedLambdaRequest<CreateUserRequest>,LambdaResponse> {
+public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, CreateUserResult> implements RequestHandler<LambdaRequest<CreateUserRequest>,LambdaResponse> {
     /**
      * Handles a Lambda Function request
      *
@@ -14,13 +14,16 @@ public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, Cr
      * @return The Lambda Function output
      */
     @Override
-    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<CreateUserRequest> input, Context context) {
+    public LambdaResponse handleRequest(LambdaRequest<CreateUserRequest> input, Context context) {
+        System.out.println(input.toString());
         return super.runActivity(
                 () -> {
+                    System.out.println("NOAH LINE 21");
                     CreateUserRequest unauthenticatedRequest = input.fromBody(CreateUserRequest.class);
-                    return input.fromUserClaims(claims ->
+                    System.out.println("NOAH LINE 23 " + unauthenticatedRequest);
+                    return input.fromPath(claims ->
                             CreateUserRequest.builder()
-                                    .withUserId(claims.get("userId"))
+                                    .withUserId(unauthenticatedRequest.getUserId())
                                     .withFirstName(unauthenticatedRequest.getFirstName())
                                     .withLastName(unauthenticatedRequest.getLastName())
                                     .withGender(unauthenticatedRequest.getGender())
@@ -28,8 +31,15 @@ public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, Cr
                                     .withUserInterests(unauthenticatedRequest.getUserInterests())
                                     .build());
                 },
-                (request, serviceComponent) ->
-                        serviceComponent.provideCreateUserActivity().handleRequest(request)
+                (request, serviceComponent) -> {
+                    try{
+
+                        return serviceComponent.provideCreateUserActivity().handleRequest(request);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    return serviceComponent.provideCreateUserActivity().handleRequest(request);
+                }
         );
     }
 }

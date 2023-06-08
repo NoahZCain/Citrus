@@ -37,6 +37,7 @@ public class CreateUserActivity {
                 createUserRequest.getUserInterests());
 
         UserModel userModel = new ModelConverter().toUserModel(newUser);
+
         return CreateUserResult.builder()
                 .withUser(userModel)
                 .build();

@@ -31,7 +31,7 @@ public class UpdateUserResult {
             return this;
         }
         public UpdateUserResult build(){
-            return  new UpdateUserResult(userModel);
+            return new UpdateUserResult(userModel);
         }
     }
 }

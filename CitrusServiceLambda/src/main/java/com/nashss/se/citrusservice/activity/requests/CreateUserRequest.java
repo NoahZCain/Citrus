@@ -2,11 +2,11 @@ package com.nashss.se.citrusservice.activity.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.nashss.se.citrusservice.activity.results.CreateUserResult;
+
 
 import java.util.Set;
 
-@JsonDeserialize(builder = CreateUserRequest.class)
+@JsonDeserialize(builder = CreateUserRequest.Builder.class)
 public class CreateUserRequest {
     private final String userId;
     private final String firstName;
