@@ -32,31 +32,7 @@ public class UserDao {
 
         return user;
     }
-    public User saveUser(boolean isNew, String userId, String firstName, String lastName,String gender, String dateOfBirth, Set<String> userInterests){
-        User saveUser = new User();
-        saveUser.setUserId(userId);
-        if(isNew){
-            saveUser.setFirstName(firstName);
-            saveUser.setLastName(lastName);
-            saveUser.setGender(gender);
-            saveUser.setDateOfBirth(dateOfBirth);
-            saveUser.setUserInterests(userInterests);
-            this.dynamoDBMapper.save(saveUser);
-        } else {
-            User oldUser = this.getUser(userId);
-            if (firstName != null || !firstName.isEmpty()) {
-                saveUser.setFirstName(firstName);
-            }
-            if (lastName != null || !lastName.isEmpty()) {
-                saveUser.setLastName(lastName);
-            }
 
-            if (gender != null || !gender.isEmpty()) {
-                saveUser.setGender(gender);
-            }
-        }
-        return saveUser;
-    }
     public Set<String> addTagsToUser(String tag, String UserId) {
         User userToAddEventTo = this.getUser(UserId);
         Set<String> tagsAlreadyStored = userToAddEventTo.getUserInterests();
@@ -75,5 +51,36 @@ public class UserDao {
         User.setUserInterests(userInterests);
         this.dynamoDBMapper.save(User);
         return new HashSet<>(userInterests);
+    }
+
+    public User saveUser(boolean isNew, String userId,String firstName, String lastName, String gender, String dateOfBirth, Set<String> userInterests) {
+        User saveUser = new User();
+        if(isNew) {
+            saveUser.setUserId(userId);
+            saveUser.setFirstName(firstName);
+            saveUser.setLastName(lastName);
+            saveUser.setGender(gender);
+            saveUser.setDateOfBirth(dateOfBirth);
+            saveUser.setUserInterests(userInterests);
+            this.dynamoDBMapper.save(saveUser);
+        } else {
+            this.getUser(userId);
+            saveUser.setUserId(userId);
+            saveUser.setUserInterests(userInterests);
+            if(firstName != null || !firstName.isEmpty()){
+                saveUser.setFirstName(firstName);
+            }
+            if(lastName != null || !lastName.isEmpty()){
+                saveUser.setLastName(lastName);
+            }
+            if(gender != null || !gender.isEmpty()){
+                saveUser.setGender(gender);
+            }
+            if(dateOfBirth != null || !dateOfBirth.isEmpty()){
+                saveUser.setDateOfBirth(dateOfBirth);
+            }
+            this.dynamoDBMapper.save(saveUser);
+        }
+        return saveUser;
     }
 }
