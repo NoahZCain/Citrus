@@ -5,12 +5,15 @@ import com.nashss.se.citrusservice.dynamodb.models.Place;
 import com.nashss.se.citrusservice.exceptions.PointOfInterestNotFoundException;
 import com.nashss.se.citrusservice.metrics.MetricsConstants;
 import com.nashss.se.citrusservice.metrics.MetricsPublisher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 
 public class PlaceDao {
     private final DynamoDBMapper dynamoDBMapper;
     private final MetricsPublisher metricsPublisher;
+    private final Logger log = LogManager.getLogger();
 
     @Inject
     public PlaceDao(DynamoDBMapper dynamoDBMapper, MetricsPublisher metricsPublisher){

@@ -14,7 +14,7 @@ public class Place {
     private Set<String> accessibilityTags;
     private Set<String> placeTypes;
 
-
+    @DynamoDBAttribute(attributeName = "placeName")
     public String getPlaceName() {
         return placeName;
     }

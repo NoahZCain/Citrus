@@ -15,10 +15,11 @@ public class GetPlaceLambda extends LambdaActivityRunner<GetPlaceRequest, GetPla
      */
     @Override
     public LambdaResponse handleRequest(LambdaRequest<GetPlaceRequest> input, Context context) {
+        System.out.println("NOAH " + input.toString());
         return super.runActivity(
                 () -> input.fromPath(path ->
                         GetPlaceRequest.builder()
-                                .withId(path.get("id"))
+                                .withId(path.get("placeId"))
                                 .build()),
                 (request,serviceComponent) ->
                         serviceComponent.provideGetPlaceActivity().handleRequest(request));

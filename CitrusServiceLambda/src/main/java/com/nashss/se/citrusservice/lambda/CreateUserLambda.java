@@ -18,9 +18,8 @@ public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, Cr
         System.out.println(input.toString());
         return super.runActivity(
                 () -> {
-                    System.out.println("NOAH LINE 21");
+
                     CreateUserRequest unauthenticatedRequest = input.fromBody(CreateUserRequest.class);
-                    System.out.println("NOAH LINE 23 " + unauthenticatedRequest);
                     return input.fromPath(claims ->
                             CreateUserRequest.builder()
                                     .withUserId(unauthenticatedRequest.getUserId())
@@ -31,15 +30,8 @@ public class CreateUserLambda extends LambdaActivityRunner<CreateUserRequest, Cr
                                     .withUserInterests(unauthenticatedRequest.getUserInterests())
                                     .build());
                 },
-                (request, serviceComponent) -> {
-                    try{
-
-                        return serviceComponent.provideCreateUserActivity().handleRequest(request);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    return serviceComponent.provideCreateUserActivity().handleRequest(request);
-                }
+                (request, serviceComponent) ->
+                        serviceComponent.provideCreateUserActivity().handleRequest(request)
         );
     }
 }

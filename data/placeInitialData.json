@@ -3,7 +3,7 @@
     {
       "PutRequest": {
         "Item": {
-          "placeId": {"S": "001Capstone"},
+          "placeId": {"S": "Capstone"},
           "placeTypes": {"S": "food"},
           "accessibilityTags": {"SS":
           ["ramp", "braille", "low-Stimulation"]},
