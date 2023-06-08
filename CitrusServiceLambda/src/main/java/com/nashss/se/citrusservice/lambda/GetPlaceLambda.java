@@ -21,14 +21,10 @@ public class GetPlaceLambda extends LambdaActivityRunner<GetPlaceRequest, GetPla
                         GetPlaceRequest.builder()
                                 .withId(path.get("placeId"))
                                 .build()),
-                (request,serviceComponent) ->{
-                    try{
-                    return serviceComponent.provideGetPlaceActivity().handleRequest(request);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    return serviceComponent.provideGetPlaceActivity().handleRequest(request);
-                }
+                (request,serviceComponent) ->
+                    serviceComponent.provideGetPlaceActivity().handleRequest(request)
+
+
         );
 
     }
