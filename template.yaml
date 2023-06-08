@@ -236,7 +236,6 @@ Resources:
             Path: /user/{userId}
             Method: get
 
-
   GetPlaceLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -319,20 +318,16 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "placeId"
           AttributeType: "S"
-        - AttributeName: "placeTypes"
+        - AttributeName: "placeName"
           AttributeType: "S"
       KeySchema:
         - AttributeName: "placeId"
           KeyType: "HASH"
-        - AttributeName: "placeTypes"
-          KeyType: "RANGE"
       GlobalSecondaryIndexes:
-        - IndexName: "PlaceTypeIndex"
+        - IndexName: "PlaceNameIndex"
           KeySchema:
-            - AttributeName: "placeTypes"
+            - AttributeName: "placeName"
               KeyType: "HASH"
-            - AttributeName: "placeId"
-              KeyType: "RANGE"
           Projection:
             ProjectionType: "ALL"
       BillingMode: "PAY_PER_REQUEST"

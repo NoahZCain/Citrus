@@ -14,7 +14,7 @@ public class Place {
     private Set<String> accessibilityTags;
     private Set<String> placeTypes;
 
-    @DynamoDBAttribute(attributeName = "placeName")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "PlaceNameIndex", attributeName = "placeName")
     public String getPlaceName() {
         return placeName;
     }
@@ -46,8 +46,7 @@ public class Place {
     public void setAccessibilityTags(Set<String> accessibilityTags) {
         this.accessibilityTags = accessibilityTags;
     }
-    @DynamoDBIndexHashKey(globalSecondaryIndexName = "PlaceTypeIndex", attributeName = "placeTypes")
-    @DynamoDBTypeConverted(converter = StringSetConverter.class)
+    @DynamoDBAttribute(attributeName = "placeTypes")
     public Set<String> getPlaceTypes() {
         return placeTypes;
     }

@@ -13,7 +13,6 @@ import javax.inject.Inject;
 public class PlaceDao {
     private final DynamoDBMapper dynamoDBMapper;
     private final MetricsPublisher metricsPublisher;
-    private final Logger log = LogManager.getLogger();
 
     @Inject
     public PlaceDao(DynamoDBMapper dynamoDBMapper, MetricsPublisher metricsPublisher){
@@ -21,7 +20,7 @@ public class PlaceDao {
         this.metricsPublisher = metricsPublisher;
     }
     public Place getPlace(String placeId){
-        Place place = dynamoDBMapper.load(Place.class,placeId);
+        Place place = this.dynamoDBMapper.load(Place.class,placeId);
         if(place == null){
             metricsPublisher.addCount(MetricsConstants.GETPLACE_PLACENOTFOUND_COUNT,1);
             throw new PointOfInterestNotFoundException("Could not find place with id" + placeId);

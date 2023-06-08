@@ -4,7 +4,7 @@
       "PutRequest": {
         "Item": {
           "placeId": {"S": "Capstone"},
-          "placeTypes": {"S": "food"},
+          "placeTypes": {"SS": ["food","cat"]},
           "accessibilityTags": {"SS":
           ["ramp", "braille", "low-Stimulation"]},
           "placeAddress": {"S": "2416 Music Valley Dr"},
