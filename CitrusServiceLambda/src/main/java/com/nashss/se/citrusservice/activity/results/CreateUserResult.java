@@ -2,11 +2,10 @@ package com.nashss.se.citrusservice.activity.results;
 
 import com.nashss.se.citrusservice.models.UserModel;
 
-public class UpdateUserResult {
-
+public class CreateUserResult {
     private final UserModel userModel;
 
-    private UpdateUserResult(UserModel userModel){
+    private CreateUserResult(UserModel userModel){
         this.userModel = userModel;
     }
     public UserModel getUserModel(){
@@ -15,7 +14,7 @@ public class UpdateUserResult {
 
     @Override
     public String toString() {
-        return "UpdateUserResult{" +
+        return "CreateUserResult{" +
                 "userModel=" + userModel +
                 '}';
     }
@@ -23,15 +22,14 @@ public class UpdateUserResult {
         return new Builder();
     }
     public static class Builder{
-
         private UserModel userModel;
 
-        public Builder withUserModel(UserModel userModel){
+        public Builder withUser(UserModel userModel){
             this.userModel = userModel;
             return this;
         }
-        public UpdateUserResult build(){
-            return new UpdateUserResult(userModel);
+        public CreateUserResult build(){
+            return new CreateUserResult(userModel);
         }
     }
 }
