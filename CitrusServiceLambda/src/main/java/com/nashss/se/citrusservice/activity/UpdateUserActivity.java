@@ -26,7 +26,12 @@ public class UpdateUserActivity {
         log.info("Received UpdateUserRequest{}", updateUserRequest);
 
 
-        User newUser = userDao.saveUser(false, updateUserRequest.getUserId(), updateUserRequest.getFirstName(), updateUserRequest.getLastName(), updateUserRequest.getGender(), updateUserRequest.getDateOfBirth(), updateUserRequest.getUserInterests());
+        User newUser = userDao.saveUser(false, updateUserRequest.getUserId(),
+                updateUserRequest.getFirstName(),
+                updateUserRequest.getLastName(),
+                updateUserRequest.getGender(),
+                updateUserRequest.getDateOfBirth(),
+                updateUserRequest.getUserInterests());
 
         return UpdateUserResult.builder()
                 .withUserModel(new ModelConverter().toUserModel(newUser))
