@@ -8,9 +8,7 @@ import com.nashss.se.citrusservice.metrics.MetricsConstants;
 import com.nashss.se.citrusservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 
@@ -29,27 +27,30 @@ public class UserDao {
             metricsPublisher.addCount(MetricsConstants.GETUSER_PROFILENOTFOUND_COUNT, 1);
             throw new UserNotFoundException("User not found");
         }
-
         return user;
     }
 
-    public Set<String> addTagsToUser(String tag, String UserId) {
-        User userToAddEventTo = this.getUser(UserId);
-        Set<String> tagsAlreadyStored = userToAddEventTo.getUserInterests();
-        tagsAlreadyStored.add(tag);
-        userToAddEventTo.setUserInterests(tagsAlreadyStored);
-        this.dynamoDBMapper.save(userToAddEventTo);
-        return tagsAlreadyStored;
-    }
-    public Set<String> removeTagsFromUser(String tag, String UserId) {
-        if (UserId == null || UserId.isEmpty()) {
+    public User addInterestsToUser(Set<String> interests, String userId) {
+        if (userId == null || userId.isEmpty()) {
             throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
         }
-        User User = getUser(UserId);
-        Set<String> userInterests = User.getUserInterests();
+        User userToAddInterest = getUser(userId);
+        Set<String> interestsAlreadyStored = userToAddInterest.getUserInterests();
+
+        interestsAlreadyStored.addAll(interests);
+        userToAddInterest.setUserInterests(interestsAlreadyStored);
+        dynamoDBMapper.save(userToAddInterest);
+        return userToAddInterest;
+    }
+    public Set<String> removeTagsFromUser(String tag, String userId) {
+        if (userId == null || userId.isEmpty()) {
+            throw new InvalidAttributeException("The entered email address is invalid. Please try again.");
+        }
+        User user = getUser(userId);
+        Set<String> userInterests = user.getUserInterests();
         userInterests.remove(tag);
-        User.setUserInterests(userInterests);
-        this.dynamoDBMapper.save(User);
+        user.setUserInterests(userInterests);
+        this.dynamoDBMapper.save(user);
         return new HashSet<>(userInterests);
     }
 
