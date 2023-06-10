@@ -23,7 +23,6 @@ class LandingPage extends BindingClass {
         }
         
 
-        
         document.getElementById('login').addEventListener('click', this.login);
         // document.getElementById('sign-up').addEventListener('click', this.login);
 
