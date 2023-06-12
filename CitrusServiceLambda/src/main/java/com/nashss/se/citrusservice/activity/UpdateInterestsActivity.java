@@ -25,7 +25,7 @@ public class UpdateInterestsActivity {
 
     public UpdateInterestsResult handleRequest(final UpdateInterestsRequest updateInterestsRequest) {
         log.info("Received UpdateInterestsRequest{}", updateInterestsRequest);
-        System.out.println("NOAH ACTIVITY");
+        
         String userId = updateInterestsRequest.getUserId();
         Set<String> userInterests = updateInterestsRequest.getUserInterests();
 
