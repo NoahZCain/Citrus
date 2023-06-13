@@ -13,18 +13,19 @@ public class AddAccessibilityTagsRequest {
         this.placeId = placeId;
         this.accessibilityTagsToAdd = accessibilityTagsToAdd;
     }
-    public String getId(){
+    public String getPlaceId(){
         return placeId;
     }
     public Set<String> getAccessibilityTagsToAdd(){
         return accessibilityTagsToAdd;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "AddAccessibilityTagsRequest{" +
-        "placeId= '" + placeId + '\'' + 
-        ", accessibilityTagsToAdd='" + accessibilityTagsToAdd + '\'' +
-        '}';
+                "placeId='" + placeId + '\'' +
+                ", accessibilityTagsToAdd=" + accessibilityTagsToAdd +
+                '}';
     }
 
     public static Builder builder(){
