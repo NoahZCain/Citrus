@@ -4,12 +4,12 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-@JsonDeserialize(builder = AddAccesibilityTagsRequest.Builder.class)
-public class AddAccesibilityTagsRequest {
+@JsonDeserialize(builder = AddAccessibilityTagsRequest.Builder.class)
+public class AddAccessibilityTagsRequest {
     private final String placeId;
     private final Set<String> accessibilityTagsToAdd;
 
-    private AddAccesibilityTagsRequest(String placeId, Set<String> accessibilityTagsToAdd){
+    private AddAccessibilityTagsRequest(String placeId, Set<String> accessibilityTagsToAdd){
         this.placeId = placeId;
         this.accessibilityTagsToAdd = accessibilityTagsToAdd;
     }
@@ -43,8 +43,8 @@ public class AddAccesibilityTagsRequest {
         this.accessibilityTagsToAdd = accessibilityTagsToAdd;
         return this;
     }
-    public AddAccesibilityTagsRequest build(){
-            return new AddAccesibilityTagsRequest(placeId, accessibilityTagsToAdd);
+    public AddAccessibilityTagsRequest build(){
+            return new AddAccessibilityTagsRequest(placeId, accessibilityTagsToAdd);
     }
     }
 }

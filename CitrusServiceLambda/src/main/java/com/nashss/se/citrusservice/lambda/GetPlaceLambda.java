@@ -23,8 +23,6 @@ public class GetPlaceLambda extends LambdaActivityRunner<GetPlaceRequest, GetPla
                                 .build()),
                 (request,serviceComponent) ->
                     serviceComponent.provideGetPlaceActivity().handleRequest(request)
-
-
         );
 
     }
