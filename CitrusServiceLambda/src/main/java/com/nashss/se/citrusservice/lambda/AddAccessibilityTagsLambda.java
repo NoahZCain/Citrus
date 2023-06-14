@@ -5,8 +5,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.citrusservice.activity.requests.AddAccessibilityTagsRequest;
 import com.nashss.se.citrusservice.activity.results.AddAccessibilityTagsResult;
 
-import java.util.Collections;
-
 public class AddAccessibilityTagsLambda extends LambdaActivityRunner<AddAccessibilityTagsRequest, AddAccessibilityTagsResult> implements RequestHandler<AuthenticatedLambdaRequest<AddAccessibilityTagsRequest>,LambdaResponse> {
 
     /**
@@ -18,21 +16,23 @@ public class AddAccessibilityTagsLambda extends LambdaActivityRunner<AddAccessib
      */
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<AddAccessibilityTagsRequest> input, Context context) {
-        System.out.println("NOAH line 21");
         return super.runActivity(
                 () -> {
-                    System.out.println("NOAH line 24");
                     AddAccessibilityTagsRequest unauthenticatedRequest = input.fromBody(AddAccessibilityTagsRequest.class);
-                    System.out.println("NOAH line 26" + unauthenticatedRequest.toString());
-
-                    return input.fromUserClaims(claims ->
+                    return input.fromPath(claims ->
                             AddAccessibilityTagsRequest.builder()
-                                    .withPlaceId(claims.get("placeId"))
-                                    .withAccessibilityTagsToAdd(unauthenticatedRequest.getAccessibilityTagsToAdd())
+                                    .withPlaceId(unauthenticatedRequest.getPlaceId())
+                                    .withAccessibilityTags(unauthenticatedRequest.getAccessibilityTags())
                                     .build());
                 },
-                (request,serviceComponent) ->
-                        serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request)
+                (request,serviceComponent) -> {
+                    try {
+                        return serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                        return serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request);
+                }
         );
     }
 }

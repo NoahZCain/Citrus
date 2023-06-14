@@ -6,46 +6,50 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 @JsonDeserialize(builder = AddAccessibilityTagsRequest.Builder.class)
 public class AddAccessibilityTagsRequest {
-    private final String placeId;
-    private final Set<String> accessibilityTagsToAdd;
+   private final String placeId;
+   private final Set<String> accessibilityTags;
 
-    private AddAccessibilityTagsRequest(String placeId, Set<String> accessibilityTagsToAdd){
-        this.placeId = placeId;
-        this.accessibilityTagsToAdd = accessibilityTagsToAdd;
-    }
-    public String getPlaceId(){
-        return placeId;
-    }
-    public Set<String> getAccessibilityTagsToAdd(){
-        return accessibilityTagsToAdd;
-    }
+   public AddAccessibilityTagsRequest(String placeId, Set<String> accessibilityTags){
+       this.placeId = placeId;
+       this.accessibilityTags = accessibilityTags;
+   }
+
+   public String getPlaceId(){
+       return placeId;
+   }
+   public Set<String> getAccessibilityTags(){
+       return accessibilityTags;
+   }
 
     @Override
     public String toString() {
         return "AddAccessibilityTagsRequest{" +
                 "placeId='" + placeId + '\'' +
-                ", accessibilityTagsToAdd=" + accessibilityTagsToAdd +
+                ", accessibilityTags=" + accessibilityTags +
                 '}';
     }
 
     public static Builder builder(){
-        return new Builder();
+       return new Builder();
     }
     @JsonPOJOBuilder
     public static class Builder{
-        private String placeId;
-        private Set<String> accessibilityTagsToAdd;
 
-    public Builder withPlaceId(String placeId){
-        this.placeId = placeId;
-        return this;
-    }
-    public Builder withAccessibilityTagsToAdd(Set<String> accessibilityTagsToAdd){
-        this.accessibilityTagsToAdd = accessibilityTagsToAdd;
-        return this;
-    }
-    public AddAccessibilityTagsRequest build(){
-            return new AddAccessibilityTagsRequest(placeId, accessibilityTagsToAdd);
-    }
+       private String placeId;
+       private Set<String> accessibilityTags;
+
+       public Builder withPlaceId(String placeId){
+           this.placeId = placeId;
+           return this;
+       }
+
+       public Builder withAccessibilityTags(Set<String> accessibilityTags){
+           this.accessibilityTags = accessibilityTags;
+           return this;
+       }
+
+       public AddAccessibilityTagsRequest build(){
+           return new AddAccessibilityTagsRequest(placeId, accessibilityTags);
+       }
     }
 }

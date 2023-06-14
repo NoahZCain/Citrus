@@ -2,7 +2,9 @@ package com.nashss.se.citrusservice.activity;
 
 import com.nashss.se.citrusservice.activity.requests.AddAccessibilityTagsRequest;
 import com.nashss.se.citrusservice.activity.results.AddAccessibilityTagsResult;
+import com.nashss.se.citrusservice.converters.ModelConverter;
 import com.nashss.se.citrusservice.dynamodb.PlaceDao;
+import com.nashss.se.citrusservice.dynamodb.models.Place;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,15 +23,15 @@ public class AddAccessibilityTagsActivity {
 
     public AddAccessibilityTagsResult handleRequest(final AddAccessibilityTagsRequest addAccessibilityTagsRequest){
         log.info("Received AddAccessibilityTagsRequest{}",addAccessibilityTagsRequest);
-        System.out.println("NOAH LINE 24 " + addAccessibilityTagsRequest);
                 String placeId = addAccessibilityTagsRequest.getPlaceId();
-        Set<String> tagsToAdd = addAccessibilityTagsRequest.getAccessibilityTagsToAdd();
+        Set<String> tagsToAdd = addAccessibilityTagsRequest.getAccessibilityTags();
 
         placeDao.getPlace(placeId);
 
-        Set<String> updatedTags = placeDao.addTagsToPlace(tagsToAdd,placeId);
+       Place updatedPlace = placeDao.addTagsToPlace(tagsToAdd,placeId);
+
         return AddAccessibilityTagsResult.builder()
-                .withTags(updatedTags)
+                .withPlaceModel(new ModelConverter().toPlaceModel(updatedPlace))
                 .build();
     }
 }

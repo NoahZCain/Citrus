@@ -16,4 +16,8 @@ UPDATE INTERESTS
 sam build && curl -v -X PUT http://127.0.0.1:3000/user/addInterests -d '{"userId":"noahzcain@gmail.com", "userInterests":["corgis","cooking"]}' \
 -H 'Content-Type: application/json'
 
-REMOVE INTERESTS
+ADD ACCESSIBILITY TAGS
+sam build && curl -X POST -H "Content-Type: application/json" -d '{
+"placeId": "Capstone",
+"accessibilityTags": ["ramp", "braille", "low-stimulation"]
+}' http://127.0.0.1:3000/place/addTags

@@ -1,23 +1,26 @@
 package com.nashss.se.citrusservice.activity.results;
 
+import com.nashss.se.citrusservice.models.PlaceModel;
+
 import java.util.Set;
 
 public class AddAccessibilityTagsResult {
 
-    private final Set<String> accessibilityTags;
+    private final PlaceModel placeModel;
 
-    private AddAccessibilityTagsResult(Set<String> accessibilityTags){
-        this.accessibilityTags = accessibilityTags;
+
+    private AddAccessibilityTagsResult(PlaceModel placeModel){
+        this.placeModel = placeModel;
     }
 
-    public Set<String> getAccessibilityTags(){
-        return accessibilityTags;
+    public PlaceModel getPlaceModel() {
+        return placeModel;
     }
 
     @Override
     public String toString() {
         return "AddAccessibilityTagsResult{" +
-                "accessibilityTags=" + accessibilityTags +
+                "placeModel=" + placeModel +
                 '}';
     }
 
@@ -26,14 +29,15 @@ public class AddAccessibilityTagsResult {
     }
 
     public static class Builder{
-        private Set<String> accessibilityTags;
+        private PlaceModel placeModel;
 
-        public Builder withTags(Set<String> accessibilityTags){
-            this.accessibilityTags = accessibilityTags;
+        public Builder withPlaceModel(PlaceModel placeModel){
+            this.placeModel = placeModel;
             return this;
         }
+
         public AddAccessibilityTagsResult build(){
-            return new AddAccessibilityTagsResult(accessibilityTags);
+            return new AddAccessibilityTagsResult(placeModel);
         }
     }
 }
