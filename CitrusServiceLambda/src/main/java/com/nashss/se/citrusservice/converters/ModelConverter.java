@@ -9,6 +9,9 @@ import com.nashss.se.citrusservice.models.UserModel;
 
 import org.apache.logging.log4j.LogManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ModelConverter {
 
@@ -33,6 +36,15 @@ public class ModelConverter {
                 .withAccessibilityInfo(place.getAccessibilityTags())
                 .withPlaceTypes(place.getPlaceTypes())
                 .build();
+    }
+
+    public List<PlaceModel> toPlaceModelList(List<Place> places){
+        List<PlaceModel> placeModels = new ArrayList<>();
+
+        for (Place place : places){
+            placeModels.add(toPlaceModel(place));
+        }
+        return placeModels;
     }
 
 }
