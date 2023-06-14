@@ -335,6 +335,7 @@ Resources:
           Properties:
             Path: /place/addTags
             Method: post
+
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------

@@ -7,14 +7,14 @@ public class PlaceModel {
     private final String placeId;
     private final String placeName;
     private final String placeAddress;
-    private final Set<String> accessibilityInfo;
+    private final Set<String> accessibilityTags;
     private final Set<String> placeTypes;
 
-    public PlaceModel(String placeId, String placeName, String placeAddress, Set<String> accessibilityInfo, Set<String> placeTypes){
+    public PlaceModel(String placeId, String placeName, String placeAddress, Set<String> accessibilityTags, Set<String> placeTypes){
         this.placeId = placeId;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
-        this.accessibilityInfo = accessibilityInfo;
+        this.accessibilityTags = accessibilityTags;
         this.placeTypes = placeTypes;
     }
 
@@ -31,7 +31,7 @@ public class PlaceModel {
     }
 
     public Set<String> getAccessibilityInfo() {
-        return accessibilityInfo;
+        return accessibilityTags;
     }
     public Set<String> getPlaceTypes() {
         return placeTypes;
@@ -48,7 +48,7 @@ public class PlaceModel {
         if (!Objects.equals(placeId, that.placeId)) return false;
         if (!placeName.equals(that.placeName)) return false;
         if (!placeAddress.equals(that.placeAddress)) return false;
-        if (!accessibilityInfo.equals(that.accessibilityInfo)) return false;
+        if (!accessibilityTags.equals(that.accessibilityTags)) return false;
         return placeTypes.equals(that.placeTypes);
     }
 
@@ -57,7 +57,7 @@ public class PlaceModel {
         int result = placeId != null ? placeId.hashCode() : 0;
         result = 31 * result + placeName.hashCode();
         result = 31 * result + placeAddress.hashCode();
-        result = 31 * result + accessibilityInfo.hashCode();
+        result = 31 * result + accessibilityTags.hashCode();
         result = 31 * result + placeTypes.hashCode();
         return result;
     }
@@ -70,7 +70,7 @@ public class PlaceModel {
         private String placeId;
         private String placeName;
         private String placeAddress;
-        private Set<String> accessibilityInfo;
+        private Set<String> accessibilityTags;
         private Set<String> placeTypes;
 
         public Builder withPlaceId(String placeId){
@@ -85,8 +85,8 @@ public class PlaceModel {
             this.placeAddress = placeAddress;
             return this;
         }
-        public Builder withAccessibilityInfo(Set<String> accessibilityInfo){
-            this.accessibilityInfo = accessibilityInfo;
+        public Builder withAccessibilityInfo(Set<String> accessibilityTags){
+            this.accessibilityTags = accessibilityTags;
             return this;
         }
         public Builder withPlaceTypes(Set<String> placeTypes){
@@ -94,7 +94,7 @@ public class PlaceModel {
             return this;
         }
         public PlaceModel build(){
-            return new PlaceModel(placeId,placeName,placeAddress,accessibilityInfo,placeTypes);
+            return new PlaceModel(placeId,placeName,placeAddress,accessibilityTags,placeTypes);
         }
 
 

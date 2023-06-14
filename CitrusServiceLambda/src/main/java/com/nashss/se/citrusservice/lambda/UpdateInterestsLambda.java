@@ -19,28 +19,16 @@ public class UpdateInterestsLambda extends LambdaActivityRunner<UpdateInterestsR
      */
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateInterestsRequest> input, Context context) {
-        System.out.println("NOAH " + input);
         return super.runActivity(
                 () -> {
                     UpdateInterestsRequest unauthenticatedRequest = input.fromBody(UpdateInterestsRequest.class);
-                    System.out.println("NOAH LINE 28 LAMBDA " + unauthenticatedRequest.toString());
-                    String userIdFromPath = unauthenticatedRequest.getUserId();
-
                     return UpdateInterestsRequest.builder()
-                            .withUserId(userIdFromPath)
+                            .withUserId(unauthenticatedRequest.getUserId())
                             .withUserInterests(unauthenticatedRequest.getUserInterests())
                             .build();
                 },
-                (request,serviceComponent) -> {
-                    try{
-                       return serviceComponent.provideUpdateInterestsActivity().handleRequest(request);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    return  serviceComponent.provideUpdateInterestsActivity().handleRequest(request);
-                }
-
-
+                (request,serviceComponent) ->
+                        serviceComponent.provideUpdateInterestsActivity().handleRequest(request)
         );
     }
 }
