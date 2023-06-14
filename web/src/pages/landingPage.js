@@ -42,40 +42,60 @@ class LandingPage extends BindingClass {
         await this.client.login();
         
     }
-    async searchForPlaces(criteria) {
-        try{
-            const response = await this.client.search({ id: criteria});
-            const places = response.data.places;
+    // async searchForPlaces(criteria) {
+    //     try{
+    //         const response = await this.client.search({ id: criteria});
+    //         const places = response.data.places;
 
-        if (places.length === 0) {
-        console.log('No places found.');
-        // Perform any additional actions or return a specific value for empty search
-        } else {
+    //     if (places.length === 0) {
+    //     console.log('No places found.');
+    //     // Perform any additional actions or return a specific value for empty search
+    //     } else {
+    //         console.log(places);
+    //         return places;
+    //     }
+    //         console.log(places);
+    //             return places;
+    //         }   catch (error){
+    //             console.error('Search error:', error);
+    //             throw error;
+    //         }
+    //     }
+    
+    async searchForPlaces(criteria) {
+        try {
+          const queryParams = new URLSearchParams();
+          queryParams.set('placeName', criteria);
+          const queryString = queryParams.toString();
+      
+          const response = await this.client.search(queryString);
+      
+          if (response && response.data && response.data.places) {
+            const places = response.data.places;
             console.log(places);
             return places;
-        }
-            console.log(places);
-                return places;
-            }   catch (error){
-                console.error('Search error:', error);
-                throw error;
-            }
-        }
-        displaySearchResults(places, searchResults) {
-        searchResults.innerHTML = '';
-
-            console.log(places);
-            console.log(searchResults);
-            places.forEach((place) => {
-              const listItem = document.createElement('li');
-              listItem.textContent = place.name;
-              searchResults.appendChild(listItem);
-            });
+          } 
           
-            const message = document.createElement('p');
-            message.textContent = 'No places found.';
-            searchResults.appendChild(message);
-          }
+        } catch (error) {
+          console.error('Search error:', error);
+          throw error;
+        }
+      }
+      displaySearchResults(places, searchResults) {
+        searchResults.innerHTML = '';
+      
+        if (Array.isArray(places) && places.length > 0) {
+          places.forEach((place) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = place.name;
+            searchResults.appendChild(listItem);
+          });
+        } else {
+          const message = document.createElement('p');
+          message.textContent = 'No places found.';
+          searchResults.appendChild(message);
+        }
+      }
     }
 
 
