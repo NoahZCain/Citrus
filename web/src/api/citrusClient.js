@@ -92,27 +92,19 @@ export default class CitrusClient extends BindingClass {
     
 
     /**
-     * Create a new playlist owned by the current user.
-     * @param name The name of the playlist to create.
-     * @param tags Metadata tags to associate with a playlist.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The playlist that has been created.
-     */
-   
-
-    /**
-     * Search for a song.
+     * Search for a place.
      * @param criteria A string containing search criteria to pass to the API.
-     * @returns The playlists that match the search criteria.
+     * @returns The place that match the search criteria.
      */
     async search(criteria, errorCallback) {
         try {
-            const queryParams = new URLSearchParams({ q: criteria })
-            const queryString = queryParams.toString();
+            // const queryParams = new URLSearchParams({ id: criteria })
+            // const queryString = queryParams.toString();
 
-            const response = await this.axiosClient.get(`place/search?${queryString}`);
-
-            return response.data.playlists;
+        const response = await this.axiosClient.get(`place/search/${criteria}`);
+        
+            console.log(response.data.places);
+            return response.data.places;
         } catch (error) {
             this.handleError(error, errorCallback)
         }

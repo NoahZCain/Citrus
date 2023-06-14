@@ -16,13 +16,14 @@ public class SearchForPlaceLambda extends LambdaActivityRunner<SearchForPlaceReq
      * @return The Lambda Function output
      */
     private final Logger log = LogManager.getLogger();
+    
     @Override
     public LambdaResponse handleRequest(LambdaRequest<SearchForPlaceRequest> input, Context context) {
         log.info("HandleRequest");
         return super.runActivity(
                 () -> input.fromQuery(query ->
                         SearchForPlaceRequest.builder()
-                                .withCriteria(query.get("q"))
+                                .withCriteria(query.get("placeName"))
                                 .build()),
                 (request,serviceComponent) ->
                         serviceComponent.provideSearchForPlaceActivity().handleRequest(request)

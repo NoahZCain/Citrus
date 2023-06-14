@@ -43,24 +43,42 @@ class LandingPage extends BindingClass {
         
     }
     async searchForPlaces(criteria) {
-        try {
-          const places = await this.client.search(criteria);
-          return places;
-        } catch (error) {
-          console.error('Search error:', error);
+        try{
+            const response = await this.client.search({ id: criteria});
+            const places = response.data.places;
+
+        if (places.length === 0) {
+        console.log('No places found.');
+        // Perform any additional actions or return a specific value for empty search
+        } else {
+            console.log(places);
+            return places;
         }
-    }
-    displaySearchResults(places, searchResults) {
+            console.log(places);
+                return places;
+            }   catch (error){
+                console.error('Search error:', error);
+                throw error;
+            }
+        }
+        displaySearchResults(places, searchResults) {
         searchResults.innerHTML = '';
-      
-        places.forEach((place) => {
-          const listItem = document.createElement('li');
-          listItem.textContent = place.name;
-          searchResults.appendChild(listItem);
-        });
+
+            console.log(places);
+            console.log(searchResults);
+            places.forEach((place) => {
+              const listItem = document.createElement('li');
+              listItem.textContent = place.name;
+              searchResults.appendChild(listItem);
+            });
+          
+            const message = document.createElement('p');
+            message.textContent = 'No places found.';
+            searchResults.appendChild(message);
+          }
     }
 
-}
+
 /**
  * Main method to run when the page contents have loaded.
  */
