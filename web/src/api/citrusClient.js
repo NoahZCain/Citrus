@@ -98,47 +98,7 @@ export default class CitrusClient extends BindingClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The playlist that has been created.
      */
-    async createPlaylist(name, tags, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can create playlists.");
-            const response = await this.axiosClient.post(`playlists`, {
-                name: name,
-                tags: tags
-            }, {
-                headers: {
-                    Authorization: 'Bearer ${token}'
-                }
-            });
-            return response.data.playlist;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-    }
-
-    /**
-     * Add a song to a playlist.
-     * @param id The id of the playlist to add a song to.
-     * @param asin The asin that uniquely identifies the album.
-     * @param trackNumber The track number of the song on the album.
-     * @returns The list of songs on a playlist.
-     */
-    async addSongToPlaylist(id, asin, trackNumber, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can add a song to a playlist.");
-            const response = await this.axiosClient.post(`playlists/${id}/songs`, {
-                id: id,
-                asin: asin,
-                trackNumber: trackNumber
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            return response.data.songList;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-    }
+   
 
     /**
      * Search for a song.
@@ -150,7 +110,7 @@ export default class CitrusClient extends BindingClass {
             const queryParams = new URLSearchParams({ q: criteria })
             const queryString = queryParams.toString();
 
-            const response = await this.axiosClient.get(`playlists/search?${queryString}`);
+            const response = await this.axiosClient.get(`place/search?${queryString}`);
 
             return response.data.playlists;
         } catch (error) {

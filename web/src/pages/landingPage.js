@@ -6,7 +6,7 @@ import DataStore from "./util/DataStore.js";
 class LandingPage extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'login'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'login', 'searchForPlaces', 'displaySearchResults'], this);
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         this.client = new CitrusClient();
@@ -22,19 +22,43 @@ class LandingPage extends BindingClass {
             window.location.href= '/profile.html';
         }
         
-
         document.getElementById('login').addEventListener('click', this.login);
-        // document.getElementById('sign-up').addEventListener('click', this.login);
 
-
+        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+      
+        searchForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+      
+          const searchCriteria = searchInput.value;
+          const places = await this.searchForPlaces(searchCriteria);
+      
+          this.displaySearchResults(places, searchResults);
+        });
     }
 
     async login(){
         await this.client.login();
         
     }
-
-
+    async searchForPlaces(criteria) {
+        try {
+          const places = await this.client.search(criteria);
+          return places;
+        } catch (error) {
+          console.error('Search error:', error);
+        }
+    }
+    displaySearchResults(places, searchResults) {
+        searchResults.innerHTML = '';
+      
+        places.forEach((place) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = place.name;
+          searchResults.appendChild(listItem);
+        });
+    }
 
 }
 /**
