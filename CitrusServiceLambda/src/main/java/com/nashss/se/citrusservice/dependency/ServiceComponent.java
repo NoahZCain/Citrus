@@ -15,4 +15,5 @@ public interface ServiceComponent {
     CreateUserActivity provideCreateUserActivity();
     UpdateInterestsActivity provideUpdateInterestsActivity();
     AddAccessibilityTagsActivity provideAddAccessibilityTagsActivity();
+    SearchForPlaceActivity provideSearchForPlaceActivity();
 }

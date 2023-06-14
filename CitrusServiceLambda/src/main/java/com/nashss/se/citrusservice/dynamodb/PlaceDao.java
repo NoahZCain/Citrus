@@ -1,6 +1,9 @@
 package com.nashss.se.citrusservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.citrusservice.dynamodb.models.Place;
 import com.nashss.se.citrusservice.dynamodb.models.User;
 import com.nashss.se.citrusservice.exceptions.InvalidAttributeException;
@@ -9,7 +12,7 @@ import com.nashss.se.citrusservice.metrics.MetricsConstants;
 import com.nashss.se.citrusservice.metrics.MetricsPublisher;
 
 import javax.inject.Inject;
-import java.util.Set;
+import java.util.*;
 
 public class PlaceDao {
     private final DynamoDBMapper dynamoDBMapper;
@@ -43,5 +46,35 @@ public class PlaceDao {
         dynamoDBMapper.save(placeToAddTags);
         return placeToAddTags;
     }
+    public List<Place> searchForPlace(String[] criteria) {
+        if (criteria.length == 0) {
+            return Collections.emptyList(); // No criteria provided, return an empty list
+        }
 
+        List<Place> places = new ArrayList<>();
+
+        for (String criterion : criteria) {
+            DynamoDBQueryExpression<Place> queryExpression = new DynamoDBQueryExpression<Place>()
+                    .withIndexName("PlaceNameIndex")
+                    .withConsistentRead(false)
+                    .withKeyConditionExpression("placeName = :placeName")
+                    .withExpressionAttributeValues(Map.of(":placeName", new AttributeValue(criterion)));
+
+            List<Place> result = dynamoDBMapper.query(Place.class, queryExpression);
+            places.addAll(result);
+        }
+
+        return places;
+    }
+
+//    private StringBuilder filterExpressionPart(String target, String valueMapNamePrefix, int position) {
+//            String possiblyAnd = position == 0 ? "" : "and ";
+//            return new StringBuilder()
+//                    .append(possiblyAnd)
+//                    .append("contains(")
+//                    .append(target)
+//                    .append(", ")
+//                    .append(valueMapNamePrefix).append(position)
+//                    .append(") ");
+//        }
 }
