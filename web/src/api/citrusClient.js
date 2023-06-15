@@ -11,7 +11,7 @@ export default class CitrusClient extends BindingClass {
         
         super();
         
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();;
         this.props = props;
@@ -91,6 +91,7 @@ export default class CitrusClient extends BindingClass {
     }
     
 
+
     /**
      * Search for a place.
      * @param criteria A string containing search criteria to pass to the API.
@@ -98,15 +99,15 @@ export default class CitrusClient extends BindingClass {
      */
     async search(criteria, errorCallback) {
         try {
-          const queryParams = new URLSearchParams({ placeName: criteria });
+          const queryParams = new URLSearchParams({ id : criteria });
           const queryString = queryParams.toString();
-          console.log(queryString);
+          console.log(queryParams);
       
           const response = await this.axiosClient.get(`/place/search/?${queryString}`);
-      
+          console.log(response);
+            
           if (response && response.data && response.data.places) {
             const places = response.data.places;
-            console.log(response.data);
             return places;
           } else {
             throw new Error('Invalid response data');

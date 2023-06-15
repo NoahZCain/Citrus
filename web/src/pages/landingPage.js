@@ -40,7 +40,6 @@ class LandingPage extends BindingClass {
 
     async login(){
         await this.client.login();
-        
     }
     // async searchForPlaces(criteria) {
     //     try{
@@ -61,14 +60,15 @@ class LandingPage extends BindingClass {
     //             throw error;
     //         }
     //     }
-    
+
     async searchForPlaces(criteria) {
         try {
           const queryParams = new URLSearchParams();
           queryParams.set('placeName', criteria);
+
           const queryString = queryParams.toString();
-      
           const response = await this.client.search(queryString);
+          console.log(queryParams);
       
           if (response && response.data && response.data.places) {
             const places = response.data.places;

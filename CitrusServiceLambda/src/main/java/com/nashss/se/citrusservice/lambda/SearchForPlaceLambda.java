@@ -23,7 +23,7 @@ public class SearchForPlaceLambda extends LambdaActivityRunner<SearchForPlaceReq
         return super.runActivity(
                 () -> input.fromQuery(query ->
                         SearchForPlaceRequest.builder()
-                                .withCriteria(query.get("placeName"))
+                                .withCriteria(query.get("id"))
                                 .build()),
                 (request,serviceComponent) ->
                         serviceComponent.provideSearchForPlaceActivity().handleRequest(request)
