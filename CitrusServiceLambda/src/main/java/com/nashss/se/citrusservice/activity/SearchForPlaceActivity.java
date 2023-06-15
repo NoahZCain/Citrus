@@ -29,7 +29,7 @@ public class SearchForPlaceActivity {
     public SearchForPlaceResult handleRequest(final SearchForPlaceRequest searchForPlaceRequest){
         log.info("Received SearchForPlaceRequest{}",searchForPlaceRequest);
 
-        String criteria = ifNull(searchForPlaceRequest.getCriteria(),"");
+        String criteria = ifNull(searchForPlaceRequest.getplaceName(),"");
         String[] criteriaArray = criteria.isBlank() ? new String[0] : criteria.split("\\s");
 
         List<Place> result = placeDao.searchForPlace(criteriaArray);

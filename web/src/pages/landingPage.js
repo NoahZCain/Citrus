@@ -23,19 +23,24 @@ class LandingPage extends BindingClass {
         }
         
         document.getElementById('login').addEventListener('click', this.login);
-
+        
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
         const searchResults = document.getElementById('searchResults');
-      
+        
         searchForm.addEventListener('submit', async (event) => {
           event.preventDefault();
       
           const searchCriteria = searchInput.value;
           const places = await this.searchForPlaces(searchCriteria);
       
-          this.displaySearchResults(places, searchResults);
+          // Generate the URL with search criteria
+          // const url = `/search-results.html?criteria=${encodeURIComponent(searchCriteria)}`;
+      
+          // Navigate to the search results page
+          window.location.href = '/searchResults.html';
         });
+        
     }
 
     async login(){
@@ -67,14 +72,14 @@ class LandingPage extends BindingClass {
           queryParams.set('placeName', criteria);
 
           const queryString = queryParams.toString();
-          const response = await this.client.search(queryString);
-          console.log(queryParams);
+          const response = await this.client.search(queryString,this.handleError);
+          
       
-          if (response && response.data && response.data.places) {
-            const places = response.data.places;
+          if (response && Array.isArray(response)) { // Update the response handling
+            const places = response;
             console.log(places);
             return places;
-          } 
+          }
           
         } catch (error) {
           console.error('Search error:', error);
@@ -87,9 +92,10 @@ class LandingPage extends BindingClass {
         if (Array.isArray(places) && places.length > 0) {
           places.forEach((place) => {
             const listItem = document.createElement('li');
-            listItem.textContent = place.name;
+            listItem.textContent = place.placeName;
             searchResults.appendChild(listItem);
-          });
+        });
+          
         } else {
           const message = document.createElement('p');
           message.textContent = 'No places found.';

@@ -99,16 +99,16 @@ export default class CitrusClient extends BindingClass {
      */
     async search(criteria, errorCallback) {
         try {
-          const queryParams = new URLSearchParams({ id : criteria });
+          const queryParams = new URLSearchParams({ placeName : criteria });
           const queryString = queryParams.toString();
-          console.log(queryParams);
+          console.log(queryString);
       
-          const response = await this.axiosClient.get(`/place/search/?${queryString}`);
+          const response = await this.axiosClient.get(`place/search?${queryString}`);
           console.log(response);
-            
-          if (response && response.data && response.data.places) {
+        
+        if (response && response.data && response.data.places) {
             const places = response.data.places;
-            return places;
+            return places; // Wrap places in a data property
           } else {
             throw new Error('Invalid response data');
           }
@@ -116,7 +116,6 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
-
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
@@ -136,4 +135,5 @@ export default class CitrusClient extends BindingClass {
             errorCallback(error);
         }
     }
+    
 }

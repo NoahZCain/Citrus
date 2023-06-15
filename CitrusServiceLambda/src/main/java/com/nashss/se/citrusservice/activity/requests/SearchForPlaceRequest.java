@@ -1,20 +1,20 @@
 package com.nashss.se.citrusservice.activity.requests;
 
 public class SearchForPlaceRequest {
-    private final String criteria;
+    private final String placeName;
 
-    private SearchForPlaceRequest(String criteria) {
-        this.criteria = criteria;
+    private SearchForPlaceRequest(String placeName) {
+        this.placeName = placeName;
     }
 
-    public String getCriteria() {
-        return criteria;
+    public String getplaceName() {
+        return placeName;
     }
 
     @Override
     public String toString() {
         return "SearchForPlaceRequest{" +
-                "placeName='" + criteria + '\'' +
+                "placeName='" + placeName + '\'' +
                 '}';
     }
 
@@ -24,15 +24,15 @@ public class SearchForPlaceRequest {
     }
 
     public static class Builder {
-        private String criteria;
+        private String placeName;
 
-        public Builder withCriteria(String criteria) {
-            this.criteria = criteria;
+        public Builder withplaceName(String placeName) {
+            this.placeName = placeName;
             return this;
         }
 
         public SearchForPlaceRequest build() {
-            return new SearchForPlaceRequest(criteria);
+            return new SearchForPlaceRequest(placeName);
         }
     }
 }
