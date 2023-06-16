@@ -9,11 +9,11 @@ class SearchResults extends BindingClass{
         this.bindClassMethods(['clientLoaded','mount','logout'],this);
         this.dataStore = new DataStore;
         this.header = new Header(this.dataStore);
+        this.mount();
+        this.addPlaceName();
     }
-    async clitentLoaded(){
-        const identity = await this.client.getIdentity();
-        const place = identity.placeName;
-        const address = identity.placeAddress;
+    async clientLoaded(){
+        
     }
     mount(){
         this.client = new CitrusClient();
@@ -24,5 +24,6 @@ class SearchResults extends BindingClass{
         console.log(nameStored);
         console.log(nameElement);
     }
+    
 
 }

@@ -46,25 +46,7 @@ class LandingPage extends BindingClass {
     async login(){
         await this.client.login();
     }
-    // async searchForPlaces(criteria) {
-    //     try{
-    //         const response = await this.client.search({ id: criteria});
-    //         const places = response.data.places;
 
-    //     if (places.length === 0) {
-    //     console.log('No places found.');
-    //     // Perform any additional actions or return a specific value for empty search
-    //     } else {
-    //         console.log(places);
-    //         return places;
-    //     }
-    //         console.log(places);
-    //             return places;
-    //         }   catch (error){
-    //             console.error('Search error:', error);
-    //             throw error;
-    //         }
-    //     }
 
     async searchForPlaces(criteria) {
         try {
