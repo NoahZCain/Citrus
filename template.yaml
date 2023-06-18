@@ -336,6 +336,26 @@ Resources:
             Path: /place/addTags
             Method: post
 
+  RemoveAccessibilityTagsLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: CitrusServiceLambda
+      Handler: com.nashss.se.citrusservice.lambda.RemoveAccessibilityTagsLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CitrusService:
+          Type: Api
+          Properties:
+            Path: /place/removeTags
+            Method: delete
+
   SearchForPlaceLambda:
     Type: AWS::Serverless::Function
     Properties:

@@ -10,7 +10,7 @@ public class RemoveAccessibilityTagsRequest {
     private final Set<String> tagsToRemove;
 
     private RemoveAccessibilityTagsRequest(String placeId, Set<String> tagsToRemove){
-        this.placeId = placeid;
+        this.placeId = placeId;
         this.tagsToRemove = tagsToRemove;
     }
 
