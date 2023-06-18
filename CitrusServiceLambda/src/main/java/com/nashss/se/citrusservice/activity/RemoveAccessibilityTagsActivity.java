@@ -23,7 +23,7 @@ public class RemoveAccessibilityTagsActivity {
 
     public RemoveAccessibilityTagsResult handleRequest(final RemoveAccessibilityTagsRequest removeAccessibilityTagsRequest){
         log.info("Received RemoveTagsRequest{}",removeAccessibilityTagsRequest);
-        System.out.println("NOAH HANDLE REQUEST");
+
         String placeId = removeAccessibilityTagsRequest.getPlaceId();
         Set<String> tagsToRemove = removeAccessibilityTagsRequest.getTagsToRemove();
 

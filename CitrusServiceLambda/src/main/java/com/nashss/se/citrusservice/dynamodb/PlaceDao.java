@@ -39,13 +39,16 @@ public class PlaceDao {
             throw new InvalidAttributeException("The entered place is invalid");
         }
         Place placeToAddTags = getPlace(placeId);
-        Set<String> tagsAlreadyStored = placeToAddTags.getAccessibilityTags();
 
+        Set<String> tagsAlreadyStored = placeToAddTags.getAccessibilityTags();
         tagsAlreadyStored.addAll(accessibilityTags);
-        placeToAddTags.setAccessibilityTags(accessibilityTags);
-        dynamoDBMapper.save(placeToAddTags);
+
+        placeToAddTags.setAccessibilityTags(tagsAlreadyStored);
+        this.dynamoDBMapper.save(placeToAddTags);
         return placeToAddTags;
     }
+
+
     public List<Place> searchForPlace(String[] criteria) {
         if (criteria.length == 0) {
             return Collections.emptyList(); // No criteria provided, return an empty list
@@ -71,7 +74,11 @@ public class PlaceDao {
         }
         Place place = getPlace(placeId);
         Set<String> existingTags = place.getAccessibilityTags();
-        existingTags.remove(tagsToRemove);
+
+        for(String s : tagsToRemove){
+        existingTags.remove(s);
+
+        }
         this.dynamoDBMapper.save(place);
         return new HashSet<>(existingTags);
     }

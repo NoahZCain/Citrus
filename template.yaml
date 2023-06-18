@@ -354,7 +354,7 @@ Resources:
           Type: Api
           Properties:
             Path: /place/removeTags
-            Method: delete
+            Method: put
 
   SearchForPlaceLambda:
     Type: AWS::Serverless::Function
