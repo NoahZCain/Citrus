@@ -39,13 +39,16 @@ public class PlaceDao {
             throw new InvalidAttributeException("The entered place is invalid");
         }
         Place placeToAddTags = getPlace(placeId);
-        Set<String> tagsAlreadyStored = placeToAddTags.getAccessibilityTags();
 
+        Set<String> tagsAlreadyStored = placeToAddTags.getAccessibilityTags();
         tagsAlreadyStored.addAll(accessibilityTags);
-        placeToAddTags.setAccessibilityTags(accessibilityTags);
-        dynamoDBMapper.save(placeToAddTags);
+
+        placeToAddTags.setAccessibilityTags(tagsAlreadyStored);
+        this.dynamoDBMapper.save(placeToAddTags);
         return placeToAddTags;
     }
+
+
     public List<Place> searchForPlace(String[] criteria) {
         if (criteria.length == 0) {
             return Collections.emptyList(); // No criteria provided, return an empty list
@@ -63,18 +66,21 @@ public class PlaceDao {
             List<Place> result = dynamoDBMapper.query(Place.class, queryExpression);
             places.addAll(result);
         }
-
         return places;
     }
+    public Set<String> removeAccessibilityTagsFromPlace (String placeId, Set<String> tagsToRemove){
+        if(placeId == null){
+            throw new InvalidAttributeException("This place Does not exist");
+        }
+        Place place = getPlace(placeId);
+        Set<String> existingTags = place.getAccessibilityTags();
 
-//    private StringBuilder filterExpressionPart(String target, String valueMapNamePrefix, int position) {
-//            String possiblyAnd = position == 0 ? "" : "and ";
-//            return new StringBuilder()
-//                    .append(possiblyAnd)
-//                    .append("contains(")
-//                    .append(target)
-//                    .append(", ")
-//                    .append(valueMapNamePrefix).append(position)
-//                    .append(") ");
-//        }
+        for(String s : tagsToRemove){
+        existingTags.remove(s);
+
+        }
+        this.dynamoDBMapper.save(place);
+        return new HashSet<>(existingTags);
+    }
+
 }

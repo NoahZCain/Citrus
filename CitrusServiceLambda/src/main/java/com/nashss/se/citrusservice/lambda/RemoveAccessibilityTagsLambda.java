@@ -1,0 +1,31 @@
+package com.nashss.se.citrusservice.lambda;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.nashss.se.citrusservice.activity.requests.RemoveAccessibilityTagsRequest;
+import com.nashss.se.citrusservice.activity.results.RemoveAccessibilityTagsResult;
+
+public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAccessibilityTagsRequest, RemoveAccessibilityTagsResult> implements RequestHandler<LambdaRequest<RemoveAccessibilityTagsRequest>,LambdaResponse> {
+    /**
+     * Handles a Lambda Function request
+     *
+     * @param input   The Lambda Function input
+     * @param context The Lambda execution environment context object.
+     * @return The Lambda Function output
+     */
+    @Override
+    public LambdaResponse handleRequest(LambdaRequest<RemoveAccessibilityTagsRequest> input, Context context) {
+         return super.runActivity(
+                 () -> {
+
+                     RemoveAccessibilityTagsRequest unauthenticatedRequest = input.fromBody(RemoveAccessibilityTagsRequest.class);
+                 return RemoveAccessibilityTagsRequest.builder()
+                                 .withPlaceId(unauthenticatedRequest.getPlaceId())
+                                 .withTagsToRemove(unauthenticatedRequest.getTagsToRemove())
+                                 .build();
+                 },
+                 (request, serviceComponent) ->
+                         serviceComponent.provideRemoveTagsActivity().handleRequest(request)
+         );
+    }
+}

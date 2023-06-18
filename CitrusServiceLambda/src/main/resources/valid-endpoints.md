@@ -29,3 +29,11 @@ sam build && curl -X POST -H "Content-Type: application/json" -d '{
 "placeId": "Capstone",
 "accessibilityTags": ["ramp", "braille", "low-stimulation"]
 }' http://127.0.0.1:3000/place/addTags
+
+## REMOVE ACCESSIBILITY TAGS ##
+sam build && curl -X PUT -H "Content-Type: application/json" \
+-d '{                                                                   
+"placeId": "Capstone",
+"tagsToRemove": ["ramp"]
+}' \
+http://127.0.0.1:3000/place/removeTags
