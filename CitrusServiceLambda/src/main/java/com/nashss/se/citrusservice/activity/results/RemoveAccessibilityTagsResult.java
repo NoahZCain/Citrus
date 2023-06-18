@@ -6,13 +6,13 @@ import java.util.List;
 
 public class RemoveAccessibilityTagsResult {
 
-    private final List<PlaceModel> placeList;
+    private final List<String> placeList;
 
-    private RemoveAccessibilityTagsResult(List<PlaceModel> placeList){
+    private RemoveAccessibilityTagsResult(List<String> placeList){
         this.placeList = placeList;
     }
 
-    public List<PlaceModel> getPlaceList() {
+    public List<String> getPlaceList() {
         return placeList;
     }
 
@@ -27,9 +27,9 @@ public class RemoveAccessibilityTagsResult {
         return new Builder();
     }
     public static class Builder{
-        private List<PlaceModel> placeList;
+        private List<String> placeList;
 
-        public Builder withPlaces(List<PlaceModel> placeList){
+        public Builder withPlaces(List<String> placeList){
             this.placeList = placeList;
             return this;
         }

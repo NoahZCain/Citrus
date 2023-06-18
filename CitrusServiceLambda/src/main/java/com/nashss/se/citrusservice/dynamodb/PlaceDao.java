@@ -63,18 +63,17 @@ public class PlaceDao {
             List<Place> result = dynamoDBMapper.query(Place.class, queryExpression);
             places.addAll(result);
         }
-
         return places;
     }
+    public Set<String> removeAccessibilityTagsFromPlace (String placeId, Set<String> tagsToRemove){
+        if(placeId == null){
+            throw new InvalidAttributeException("This place Does not exist");
+        }
+        Place place = getPlace(placeId);
+        Set<String> existingTags = place.getAccessibilityTags();
+        existingTags.remove(tagsToRemove);
+        this.dynamoDBMapper.save(place);
+        return new HashSet<>(existingTags);
+    }
 
-//    private StringBuilder filterExpressionPart(String target, String valueMapNamePrefix, int position) {
-//            String possiblyAnd = position == 0 ? "" : "and ";
-//            return new StringBuilder()
-//                    .append(possiblyAnd)
-//                    .append("contains(")
-//                    .append(target)
-//                    .append(", ")
-//                    .append(valueMapNamePrefix).append(position)
-//                    .append(") ");
-//        }
 }
