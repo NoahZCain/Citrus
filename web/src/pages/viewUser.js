@@ -7,7 +7,7 @@ class ViewUser extends BindingClass{
     constructor(){
         super();
         this.bindClassMethods(['clientLoaded','mount','logout','redirectHomePage','addName','addEmail',
-        ,'addGender', 'addInterests', 'addDateOfBirth'],this);
+        ,'addGender', 'addInterests', 'addDateOfBirth','redirectEditUser'],this);
         this.dataStore = new DataStore;
         this.client = new CitrusClient();
         this.Header = new Header(this.dataStore);
@@ -115,7 +115,12 @@ class ViewUser extends BindingClass{
                 window.location.href ='/landingPage.html';
             }
         }
+    
+    async redirectEditUser() {
+        window.location.href = '/editUser.html';
+        console.log("Edit profile button");
     }
+}
         const main = async () => {
             const viewUser = new ViewUser();
             viewUser.mount();

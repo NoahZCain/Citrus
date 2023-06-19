@@ -23,9 +23,14 @@
                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                   alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
-                  Edit profile
-                </button>
+                  <button type="button" class="btn btn-outline-dark" id="editProfileButton" data-mdb-ripple-color="dark" style="z-index: 1;">
+                    Edit profile
+                  </button> <script>
+                    document.getElementById("editProfileButton").addEventListener("click", function() {
+                      window.location.href = "/editUser.html";
+                    });
+                  </script>
+                  
                 <h4 id="name" class="name"></h4>
                 <i class="far fa-edit mb-5"></i>
               </div>
