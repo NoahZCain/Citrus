@@ -6,18 +6,27 @@ import BindingClass from "./util/bindingClass";
 class ViewUser extends BindingClass{
     constructor(){
         super();
-        this.bindClassMethods(['clientLoaded','mount','logout','redirectHomePage','addName','addEmail'],this);
+        this.bindClassMethods(['clientLoaded','mount','logout','redirectHomePage','addName','addEmail',
+        ,'addGender', 'addInterests', 'addDateOfBirth'],this);
         this.dataStore = new DataStore;
+        this.client = new CitrusClient();
         this.Header = new Header(this.dataStore);
     }
-    async clientLoaded(){
+    async clientLoaded() {
         const identity = await this.client.getIdentity();
+        const user = await this.client.getUser(identity.email);
         const name = identity.name;
         const email = identity.email;
-        this.dataStore.set("email",email);
-        this.dataStore.set("name",name);
-        console.log(email);
-    }
+        const gender = user.userModel.gender;
+        const dob = user.userModel.dateOfBirth;
+        const userInterests = user.userModel.interests;
+        this.dataStore.set("email", email);
+        this.dataStore.set("name", name);
+        this.dataStore.set("interests", userInterests);
+        this.dataStore.set("gender",gender);
+        this.dataStore.set("dateOfBirth",dob);
+        console.log(dob);
+      }
     mount(){
         // document.getElementById('logout').addEventListener('click',this.redirectHomePage);
         this.client = new CitrusClient();
@@ -26,6 +35,10 @@ class ViewUser extends BindingClass{
         this.clientLoaded().then(() => {
             this.addName();
             this.addEmail();
+            this.addInterests();
+            this.addGender();
+            this.addDateOfBirth();
+            
         });
     }
      redirectHomePage(){
@@ -44,6 +57,46 @@ class ViewUser extends BindingClass{
             nameElement.innerText = nameStored;
         }
 }
+    async addGender() {
+        const gender = this.dataStore.get("gender");
+        const genderElement = document.getElementById("gender");
+        
+        if (gender == null) {
+        genderElement.innerText = "Gender";
+        } else {
+        genderElement.innerText = gender;
+        }
+    }
+    async addInterests() {
+        const interests = this.dataStore.get("interests");
+        const interestsElement = document.getElementById("userInterests");
+    
+        if (interests == null || interests.length === 0) { // Check if interests array is empty
+        interestsElement.innerText = "Add your interests here!";
+        } else {
+        const interestsList = document.createElement("ul");
+    
+        interests.forEach((interest) => {
+            const listItem = document.createElement("li");
+            listItem.innerText = interest;
+            interestsList.appendChild(listItem);
+        });
+    
+        interestsElement.appendChild(interestsList);
+        }
+    }
+  
+    async addDateOfBirth(){
+        const dob = this.dataStore.get("dateOfBirth");
+        const dobElement = document.getElementById("dateOfBirth");
+        
+        if (dob == null) {
+        dobElement.innerText = "DateOfBirth";
+        } else {
+        dobElement.innerText = dob;
+        }
+    }
+  
     async addEmail(){
         const emailStored = this.dataStore.get("email");
         const emailElement = document.getElementById("email");
