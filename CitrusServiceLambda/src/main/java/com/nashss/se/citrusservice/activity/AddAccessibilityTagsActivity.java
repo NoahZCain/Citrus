@@ -9,6 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class AddAccessibilityTagsActivity {
@@ -29,7 +31,7 @@ public class AddAccessibilityTagsActivity {
         placeDao.getPlace(placeId);
 
        Place updatedPlace = placeDao.addTagsToPlace(tagsToAdd,placeId);
-
+//        List<String> newList = new ArrayList<>(updatedPlace.getAccessibilityTags());
         return AddAccessibilityTagsResult.builder()
                 .withPlaceModel(new ModelConverter().toPlaceModel(updatedPlace))
                 .build();
