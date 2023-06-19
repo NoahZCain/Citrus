@@ -17,10 +17,7 @@ sam build && curl -v -X PUT http://127.0.0.1:3000/user/addInterests -d '{"userId
 -H 'Content-Type: application/json'
 
 ## SEARCH FOR PLACE ##
-sam build && curl -X GET "http://127.0.0.1:3000/place/search?place
-Name=Catio&placeType=food" \
--H "Content-Type: application/json"
-
+sam build && curl -X GET "http://127.0.0.1:3000/place/search?name=Catio"
 (placeType Optional)
 
 

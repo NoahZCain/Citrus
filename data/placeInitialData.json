@@ -3,12 +3,45 @@
     {
       "PutRequest": {
         "Item": {
-          "placeId": {"S": "Capstone"},
-          "placeTypes": {"SS": ["food","cat"]},
-          "accessibilityTags": {"SS":
-          ["ramp", "braille", "low-Stimulation"]},
+          "placeId": {"S": "Capstone1"},
+          "placeTypes": {"SS": ["food", "cat"]},
+          "accessibilityTags": {"SS": ["ramp", "braille", "low-Stimulation"]},
           "placeAddress": {"S": "2416 Music Valley Dr"},
           "placeName": {"S": "Catio"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "placeId": {"S": "AnotherPlace1"},
+          "placeTypes": {"SS": ["attraction", "outdoor"]},
+          "accessibilityTags": {"SS": ["elevator", "wheelchair-accessible"]},
+          "placeAddress": {"S": "1234 Main Ave"},
+          "placeName": {"S": "HotPot"}
+        }
+      }
+    },
+  {
+
+      "PutRequest": {
+        "Item": {
+          "placeId": {"S": "Capstone2"},
+          "placeTypes": {"SS": ["food", "cat"]},
+          "accessibilityTags": {"SS": ["ramp", "braille", "low-Stimulation"]},
+          "placeAddress": {"S": "2 Valley Dr"},
+          "placeName": {"S": "Paw Paw Patch"}
+        }
+      }
+    },
+    {
+      "PutRequest": {
+        "Item": {
+          "placeId": {"S": "AnotherPlace2"},
+          "placeTypes": {"SS": ["attraction", "outdoor"]},
+          "accessibilityTags": {"SS": ["elevator", "wheelchair-accessible"]},
+          "placeAddress": {"S": "123 River on Thames"},
+          "placeName": {"S": "AllyPally"}
         }
       }
     }

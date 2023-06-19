@@ -4,6 +4,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.citrusservice.activity.requests.SearchForPlaceRequest;
 import com.nashss.se.citrusservice.activity.results.SearchForPlaceResult;
+
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,14 +19,21 @@ public class SearchForPlaceLambda extends LambdaActivityRunner<SearchForPlaceReq
      * @return The Lambda Function output
      */
     private final Logger log = LogManager.getLogger();
+    
     @Override
     public LambdaResponse handleRequest(LambdaRequest<SearchForPlaceRequest> input, Context context) {
         log.info("HandleRequest");
         return super.runActivity(
-                () -> input.fromQuery(query ->
-                        SearchForPlaceRequest.builder()
-                                .withCriteria(query.get("placeName"))
-                                .build()),
+            () -> {
+                Map<String, String> queryParameters = input.getQueryStringParameters();
+            String placeName = queryParameters.get("placeName");
+            if (placeName != null && placeName.startsWith("placeName=")) {
+                placeName = placeName.substring("placeName=".length());
+            }
+            return SearchForPlaceRequest.builder()
+                .withplaceName(placeName)
+                .build();
+            },
                 (request,serviceComponent) ->
                         serviceComponent.provideSearchForPlaceActivity().handleRequest(request)
         );

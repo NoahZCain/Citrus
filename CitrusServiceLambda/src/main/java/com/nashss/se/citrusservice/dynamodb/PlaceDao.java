@@ -2,10 +2,8 @@ package com.nashss.se.citrusservice.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.nashss.se.citrusservice.dynamodb.models.Place;
-import com.nashss.se.citrusservice.dynamodb.models.User;
 import com.nashss.se.citrusservice.exceptions.InvalidAttributeException;
 import com.nashss.se.citrusservice.exceptions.PointOfInterestNotFoundException;
 import com.nashss.se.citrusservice.metrics.MetricsConstants;
@@ -68,6 +66,8 @@ public class PlaceDao {
         }
         return places;
     }
+
+
     public Set<String> removeAccessibilityTagsFromPlace (String placeId, Set<String> tagsToRemove){
         if(placeId == null){
             throw new InvalidAttributeException("This place Does not exist");
@@ -82,5 +82,6 @@ public class PlaceDao {
         this.dynamoDBMapper.save(place);
         return new HashSet<>(existingTags);
     }
+
 
 }

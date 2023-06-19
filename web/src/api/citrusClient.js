@@ -11,7 +11,8 @@ export default class CitrusClient extends BindingClass {
         
         super();
         
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search','getPlace','getPlaceByName'
+    ,'checkPlaceExists'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();;
         this.props = props;
@@ -90,75 +91,95 @@ export default class CitrusClient extends BindingClass {
         }
     }
     
-
-    /**
-     * Create a new playlist owned by the current user.
-     * @param name The name of the playlist to create.
-     * @param tags Metadata tags to associate with a playlist.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The playlist that has been created.
-     */
-    async createPlaylist(name, tags, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can create playlists.");
-            const response = await this.axiosClient.post(`playlists`, {
-                name: name,
-                tags: tags
-            }, {
-                headers: {
-                    Authorization: 'Bearer ${token}'
-                }
-            });
-            return response.data.playlist;
+    async getPlace(placeId, errorCallback) {
+        try { 
+          const response = await this.axiosClient.get(`place/${placeId}`, {
+        });
+          return response.data;
         } catch (error) {
-            this.handleError(error, errorCallback)
+          this.handleError(error, errorCallback);
         }
-    }
+      }
 
     /**
-     * Add a song to a playlist.
-     * @param id The id of the playlist to add a song to.
-     * @param asin The asin that uniquely identifies the album.
-     * @param trackNumber The track number of the song on the album.
-     * @returns The list of songs on a playlist.
-     */
-    async addSongToPlaylist(id, asin, trackNumber, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can add a song to a playlist.");
-            const response = await this.axiosClient.post(`playlists/${id}/songs`, {
-                id: id,
-                asin: asin,
-                trackNumber: trackNumber
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            return response.data.songList;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-    }
-
-    /**
-     * Search for a song.
+     * Search for a place.
      * @param criteria A string containing search criteria to pass to the API.
-     * @returns The playlists that match the search criteria.
+     * @returns The place that match the search criteria.
      */
     async search(criteria, errorCallback) {
         try {
-            const queryParams = new URLSearchParams({ q: criteria })
-            const queryString = queryParams.toString();
-
-            const response = await this.axiosClient.get(`playlists/search?${queryString}`);
-
-            return response.data.playlists;
+          const queryParams = new URLSearchParams({ placeName : criteria });
+          const queryString = queryParams.toString();
+          console.log(queryString);
+      
+          const response = await this.axiosClient.get(`place/search?${queryString}`);
+          console.log(response);
+        
+        if (response && response.data && response.data.places) {
+            const places = response.data.places;
+            return places; // Wrap places in a data property
+          } else {
+            throw new Error('Invalid response data');
+          }
         } catch (error) {
-            this.handleError(error, errorCallback)
+          this.handleError(error, errorCallback);
         }
-
-    }
-
+      }
+      async getPlace(placeId,errorCallback){
+        try{
+            const response = await this.axiosClient.get(`place/${placeId}`)
+            return response.data.placeName;
+        } catch (error){
+            this.handleError(error,errorCallback);
+        }
+      }
+      async getPlaceByName(placeName, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can view a place by name.");
+          const response = await this.axiosClient.get(`place/search`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            params: {
+              placeName: placeName
+            }
+          });
+          
+          if (response && response.data && response.data.places) {
+            const places = response.data.places;
+            return places; // Wrap places in a data property
+          } else {
+            throw new Error('Invalid response data');
+          }
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
+      async checkPlaceExists(placeName, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can check if a place exists.");
+          const response = await this.axiosClient.get(`place/search`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            params: {
+              placeName: placeName
+            }
+          });
+      
+          if (response && response.data && response.data.places) {
+            const places = response.data.places;
+            return places.length > 0; // Return true if at least one place with the given name exists
+          } else {
+            throw new Error('Invalid response data');
+          }
+        } catch (error) {
+          this.handleError(error, errorCallback);
+          return false; // Return false in case of error
+        }
+      }
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
@@ -178,4 +199,5 @@ export default class CitrusClient extends BindingClass {
             errorCallback(error);
         }
     }
+    
 }
