@@ -11,7 +11,8 @@ export default class CitrusClient extends BindingClass {
         
         super();
         
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search','getPlace','getPlaceByName'
+    ,'checkPlaceExists'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();;
         this.props = props;
@@ -90,7 +91,15 @@ export default class CitrusClient extends BindingClass {
         }
     }
     
-
+    async getPlace(placeId, errorCallback) {
+        try { 
+          const response = await this.axiosClient.get(`place/${placeId}`, {
+        });
+          return response.data;
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
 
     /**
      * Search for a place.
@@ -114,6 +123,61 @@ export default class CitrusClient extends BindingClass {
           }
         } catch (error) {
           this.handleError(error, errorCallback);
+        }
+      }
+      async getPlace(placeId,errorCallback){
+        try{
+            const response = await this.axiosClient.get(`place/${placeId}`)
+            return response.data.placeName;
+        } catch (error){
+            this.handleError(error,errorCallback);
+        }
+      }
+      async getPlaceByName(placeName, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can view a place by name.");
+          const response = await this.axiosClient.get(`place/search`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            params: {
+              placeName: placeName
+            }
+          });
+          
+          if (response && response.data && response.data.places) {
+            const places = response.data.places;
+            return places; // Wrap places in a data property
+          } else {
+            throw new Error('Invalid response data');
+          }
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
+      async checkPlaceExists(placeName, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can check if a place exists.");
+          const response = await this.axiosClient.get(`place/search`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            params: {
+              placeName: placeName
+            }
+          });
+      
+          if (response && response.data && response.data.places) {
+            const places = response.data.places;
+            return places.length > 0; // Return true if at least one place with the given name exists
+          } else {
+            throw new Error('Invalid response data');
+          }
+        } catch (error) {
+          this.handleError(error, errorCallback);
+          return false; // Return false in case of error
         }
       }
     /**

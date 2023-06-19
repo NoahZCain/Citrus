@@ -30,15 +30,16 @@ class LandingPage extends BindingClass {
         
         searchForm.addEventListener('submit', async (event) => {
           event.preventDefault();
-      
+        
           const searchCriteria = searchInput.value;
           const places = await this.searchForPlaces(searchCriteria);
-      
+          console.log(searchCriteria);
+        
           // Generate the URL with search criteria
-          // const url = `/search-results.html?criteria=${encodeURIComponent(searchCriteria)}`;
-      
+          const url = `/searchResults.html?criteria=${encodeURIComponent(searchCriteria)}`;
+        
           // Navigate to the search results page
-          window.location.href = '/searchResults.html';
+          window.location.href = url;
         });
         
     }
