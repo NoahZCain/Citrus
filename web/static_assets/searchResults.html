@@ -17,17 +17,6 @@
 <body>
   <h1>Search Results</h1>
   <div id="placeAttributes"></div>
-  <script>
-    // Get the search criteria from the query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchCriteria = urlParams.get('criteria');
 
-    // Display the search criteria
-    if(!searchCriteria == null){
-      const searchCriteriaElement = document.getElementById("searchCriteria");
-    searchCriteriaElement.textContent = searchCriteria;
-    }
-    
-  </script>
 </body>
 </html> 

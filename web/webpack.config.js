@@ -26,7 +26,9 @@ module.exports = {
     viewUser: path.resolve(__dirname, 'src', 'pages', 'viewUser.js'),
     landingPage: path.resolve(__dirname,'src','pages','landingPage.js'),
     searchResults: path.resolve(__dirname,'src','pages','searchResults.js'),
-    editUser: path.resolve(__dirname,'src', 'pages', 'editUser.js')
+    editUser: path.resolve(__dirname,'src', 'pages', 'editUser.js'),
+    viewPlace: path.resolve(__dirname,'src', 'pages', 'viewPlace.js'),
+
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
