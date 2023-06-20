@@ -107,7 +107,7 @@ export default class CitrusClient extends BindingClass {
      */
     async search(criteria, errorCallback) {
         try {
-          const queryParams = new URLSearchParams({ placeId : criteria });
+          const queryParams = new URLSearchParams({ id : criteria });
           const queryString = queryParams.toString();
           console.log(queryString);
       
