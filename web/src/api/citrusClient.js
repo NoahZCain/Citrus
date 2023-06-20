@@ -12,7 +12,7 @@ export default class CitrusClient extends BindingClass {
         super();
         
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search','getPlace','getPlaceByName'
-    ,'checkPlaceExists'];
+    ,'updateUser'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();;
         this.props = props;
@@ -133,6 +133,19 @@ export default class CitrusClient extends BindingClass {
             this.handleError(error,errorCallback);
         }
       }
+      async updateUser(email, user, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can update their profile.");
+          await this.axiosClient.put(`user/${email}`, user, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
       async getPlaceByName(placeName, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can view a place by name.");
@@ -156,30 +169,7 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
-      async checkPlaceExists(placeName, errorCallback) {
-        try {
-          const token = await this.getTokenOrThrow("Only authenticated users can check if a place exists.");
-          const response = await this.axiosClient.get(`place/search`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            },
-            params: {
-              placeName: placeName
-            }
-          });
       
-          if (response && response.data && response.data.places) {
-            const places = response.data.places;
-            return places.length > 0; // Return true if at least one place with the given name exists
-          } else {
-            throw new Error('Invalid response data');
-          }
-        } catch (error) {
-          this.handleError(error, errorCallback);
-          return false; // Return false in case of error
-        }
-      }
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
