@@ -117,7 +117,7 @@ export default class CitrusClient extends BindingClass {
         
         if (response && response.data && response.data.places) {
             const places = response.data.places;
-            return places; // Wrap places in a data property
+            return places; 
           } else {
             throw new Error('Invalid response data');
           }
@@ -125,14 +125,18 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
+
+
       async getPlace(placeId,errorCallback){
         try{
             const response = await this.axiosClient.get(`place/${placeId}`)
-            return response.data.placeName;
+            return response.data.placeId;
         } catch (error){
             this.handleError(error,errorCallback);
         }
       }
+      
+
       async updateUser(email, user, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can update their profile.");
@@ -146,6 +150,8 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
+
+
       async getPlaceByName(placeName, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can view a place by name.");

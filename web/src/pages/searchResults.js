@@ -34,6 +34,14 @@ class SearchResults extends BindingClass {
           placeTypes.textContent = `Place Types: ${place.placeTypes}`;
           placeAttributes.appendChild(placeTypes);
   
+          const moreInfoButton = document.createElement('button');
+          moreInfoButton.textContent = 'More Info';
+          moreInfoButton.addEventListener('click', () => {
+            // Redirect to the "viewPlace" page with the place ID or other relevant information
+            window.location.href = `/viewPlace.html?id=${place.placeId}`;
+          });
+          placeAttributes.appendChild(moreInfoButton);
+  
           const lineBreak = document.createElement('hr');
           placeAttributes.appendChild(lineBreak);
         });

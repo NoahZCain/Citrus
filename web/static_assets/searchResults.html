@@ -22,12 +22,34 @@
     const urlParams = new URLSearchParams(window.location.search);
     const searchCriteria = urlParams.get('criteria');
 
-    // Display the search criteria
-    if(!searchCriteria == null){
-      const searchCriteriaElement = document.getElementById("searchCriteria");
-    searchCriteriaElement.textContent = searchCriteria;
+   
+
+
+    // Display search results
+    const placeAttributesElement = document.getElementById("placeAttributes");
+    searchResults.forEach((result) => {
+      const placeContainer = document.createElement("div");
+
+      const placeName = document.createElement("span");
+      placeName.textContent = result.name;
+
+      const moreInfoButton = document.createElement("button");
+      moreInfoButton.textContent = "More Info";
+      moreInfoButton.addEventListener("click", () => {
+        redirectToViewPlace(result.id);
+      });
+
+      placeContainer.appendChild(placeName);
+      placeContainer.appendChild(moreInfoButton);
+      placeContainer.appendChild(document.createElement("br"));
+
+      placeAttributesElement.appendChild(placeContainer);
+    });
+
+    // Function to redirect to viewPlace page with the provided id
+    function redirectToViewPlace(id) {
+      window.location.href = `/viewPlace.html?id=${id}`;
     }
-    
   </script>
 </body>
 </html> 
