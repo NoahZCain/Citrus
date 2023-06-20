@@ -93,6 +93,7 @@ export default class CitrusClient extends BindingClass {
     
     async getPlace(placeId, errorCallback) {
         try {
+          console.log(placeId + "placeId");
           const response = await this.axiosClient.get(`place/${placeId}`);
           return response.data; // Return the entire place object
         } catch (error) {
@@ -107,7 +108,7 @@ export default class CitrusClient extends BindingClass {
      */
     async search(criteria, errorCallback) {
         try {
-          const queryParams = new URLSearchParams({ id : criteria });
+          const queryParams = new URLSearchParams({ placeName : criteria });
           const queryString = queryParams.toString();
           console.log(queryString);
       

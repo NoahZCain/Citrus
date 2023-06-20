@@ -13,32 +13,31 @@ class ViewPlace extends BindingClass {
  
   async displayPlaceDetails(placeId) {
     try {
-      const place = await this.client.getPlace(placeId);
-      console.log(place);
+      const placeResponse = await this.client.getPlace(placeId);
+      const place = placeResponse.placesModel;
   
       if (place) {
-        const placeAttributes = document.getElementById('placeAttributes');
+     
   
-        const placeName = document.createElement('p');
-        placeName.textContent = place.placeName;
-        placeAttributes.appendChild(placeName);
+      const placeName = document.createElement('p');
+      placeName.textContent = `Place Name: ${place.placeName}`;
+      placeAttributes.appendChild(placeName);
 
-        const accessibilityInfo = document.createElement('p');
-        accessibilityInfo.textContent = `Accessibility Info: ${place.accessibilityInfo}`;
-        placeAttributes.appendChild(accessibilityInfo);
-  
-        const address = document.createElement('p');
-        address.textContent = `Address: ${place.placeAddress}`;
-        placeAttributes.appendChild(address);
-  
-  
-        const placeTypes = document.createElement('p');
-        placeTypes.textContent = `Place Types: ${place.placeTypes}`;
-        placeAttributes.appendChild(placeTypes);
-  
-        const editTagsButton = document.getElementById('editTagsButton');
+      const accessibilityInfo = document.createElement('p');
+      accessibilityInfo.textContent = `Accessibility Info: ${place.accessibilityInfo.join(', ')}`;
+      placeAttributes.appendChild(accessibilityInfo);
+
+      const address = document.createElement('p');
+      address.textContent = `Address: ${place.placeAddress}`;
+      placeAttributes.appendChild(address);
+
+      const placeTypes = document.createElement('p');
+      placeTypes.textContent = `Place Types: ${place.placeTypes.join(', ')}`;
+      placeAttributes.appendChild(placeTypes);
+
+ 	const editTagsButton = document.getElementById('editTagsButton');
         editTagsButton.addEventListener('click', () => {
-          window.location.href = `/editTags.html?placeId=${place.placeId}`;
+        window.location.href = `/editTags.html?placeId=${place.placeId}`;
         });
       } else {
         console.error('Place not found');
