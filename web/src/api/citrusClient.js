@@ -156,7 +156,7 @@ export default class CitrusClient extends BindingClass {
           
           if (response && response.data && response.data.places) {
             const places = response.data.places;
-            return places; // Wrap places in a data property
+            return places; 
           } else {
             throw new Error('Invalid response data');
           }
@@ -164,26 +164,44 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
-      async addPlaceTag(placeId, tag, errorCallback) {
+      async addPlaceTag(placeId,tag, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can add tags to a place.");
-          const response = await this.axiosClient.post(`place/${placeId}/tags`, { tag }, {
+          console.log(token);
+          
+          const payload = {
+            placeId: placeId,
+            accessibilityTags: [tag]
+          };
+      
+          const response = await this.axiosClient.post('/place/addTags', payload, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
-            }
+            },
+            data: { tag }
           });
-      
-          console.log(response.data); // Handle the response as needed
+          console.log(response.data.accessibilityTags); 
+       
         } catch (error) {
-          this.handleError(error, errorCallback);
+          
+          if (errorCallback && typeof errorCallback === 'function') {
+            errorCallback(error);
+          } else {
+            console.error('Error adding place tag:', error);
+          }
         }
       }
+      
       
       async removePlaceTag(placeId, tag, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can remove tags from a place.");
-          const response = await this.axiosClient.delete(`place/${placeId}/tags`, {
+          const payload = {
+            placeId: placeId,
+            accessibilityTags: [tag]
+          };
+          const response = await this.axiosClient.put(`/place/removeTags`,payload, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'

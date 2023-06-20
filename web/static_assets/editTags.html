@@ -24,17 +24,16 @@
 
   <div id="editTagsForm">
     <h2>Add or Remove Tags:</h2>
-    <form id="tagsForm">
-        
-        <input type="text" id="addTags" placeholder="Add tags separated by commas">
-        <button id="addButton">Add Tags</button>
-
-    <p></p>
-      <input type="text" id="removeTags" placeholder="Remove tags separated by commas">
-      <button id="removeButton">Remove Tags</button>
-
+    <form id="addTagsForm" action="" method="post">
+        <input type="text" id="addTags" placeholder="Add tags" />
+        <button type="submit">Add Tags</button>
+      </form>
       
-    </form>
+      <form id="removeTagsForm" action="" method="post">
+        <input type="text" id="removeTags" placeholder="Remove tags" />
+        <button type="submit">Remove Tags</button>
+      </form>
+      
   </div>
 
   <script type="text/javascript" src="/assets/editTags.js"></script>

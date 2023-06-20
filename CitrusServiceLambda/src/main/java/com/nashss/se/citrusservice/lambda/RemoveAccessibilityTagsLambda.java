@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.citrusservice.activity.requests.RemoveAccessibilityTagsRequest;
 import com.nashss.se.citrusservice.activity.results.RemoveAccessibilityTagsResult;
 
-public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAccessibilityTagsRequest, RemoveAccessibilityTagsResult> implements RequestHandler<LambdaRequest<RemoveAccessibilityTagsRequest>,LambdaResponse> {
+public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAccessibilityTagsRequest, RemoveAccessibilityTagsResult> implements RequestHandler<AuthenticatedLambdaRequest<RemoveAccessibilityTagsRequest>,LambdaResponse> {
     /**
      * Handles a Lambda Function request
      *
@@ -14,7 +14,7 @@ public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAc
      * @return The Lambda Function output
      */
     @Override
-    public LambdaResponse handleRequest(LambdaRequest<RemoveAccessibilityTagsRequest> input, Context context) {
+    public LambdaResponse handleRequest(AuthenticatedLambdaRequest<RemoveAccessibilityTagsRequest> input, Context context) {
          return super.runActivity(
                  () -> {
 

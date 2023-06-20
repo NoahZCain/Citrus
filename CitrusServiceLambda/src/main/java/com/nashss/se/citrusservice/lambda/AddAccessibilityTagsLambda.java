@@ -25,14 +25,8 @@ public class AddAccessibilityTagsLambda extends LambdaActivityRunner<AddAccessib
                                     .withAccessibilityTags(unauthenticatedRequest.getAccessibilityTags())
                                     .build());
                 },
-                (request,serviceComponent) -> {
-                    try {
-                        return serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request);
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
-                        return serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request);
-                }
+                (request,serviceComponent) -> 
+                    serviceComponent.provideAddAccessibilityTagsActivity().handleRequest(request)
         );
     }
 }
