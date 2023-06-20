@@ -12,7 +12,7 @@ export default class CitrusClient extends BindingClass {
         super();
         
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'isLoggedIn', 'getUser', 'search','getPlace','getPlaceByName'
-    ,'updateUser'];
+    ,'updateUser','addPlaceTag','removePlaceTag'];
         this.bindClassMethods(methodsToBind, this);
         this.authenticator = new Authenticator();;
         this.props = props;
@@ -164,25 +164,50 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
+      async addPlaceTag(placeId, tag, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can add tags to a place.");
+          const response = await this.axiosClient.post(`place/${placeId}/tags`, { tag }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
       
-    /**
-     * Helper method to log the error and run any error functions.
-     * @param error The error received from the server.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     */
-    handleError(error, errorCallback) {
+          console.log(response.data); // Handle the response as needed
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
+      
+      async removePlaceTag(placeId, tag, errorCallback) {
+        try {
+          const token = await this.getTokenOrThrow("Only authenticated users can remove tags from a place.");
+          const response = await this.axiosClient.delete(`place/${placeId}/tags`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: { tag }
+          });
+      
+          console.log(response.data); // Handle the response as needed
+        } catch (error) {
+          this.handleError(error, errorCallback);
+        }
+      }
+      handleError = (error, errorCallback) => {
         console.error(error);
-
+    
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
-            console.error("errorFromApi " + errorFromApi)
-            error.message = errorFromApi;
+          console.error("errorFromApi " + errorFromApi);
+          error.message = errorFromApi;
         }
-
-        if (errorCallback) {
-        console.error("errorCallback " + errorCallback)
-            errorCallback(error);
-        }
-    }
     
-}
+        if (errorCallback) {
+          console.error("errorCallback " + errorCallback);
+          errorCallback(error);
+        }
+      };
+    }

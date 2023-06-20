@@ -28,6 +28,7 @@ module.exports = {
     searchResults: path.resolve(__dirname,'src','pages','searchResults.js'),
     editUser: path.resolve(__dirname,'src', 'pages', 'editUser.js'),
     viewPlace: path.resolve(__dirname,'src', 'pages', 'viewPlace.js'),
+    editTags: path.resolve(__dirname,'src', 'pages', 'editTags.js'),
 
   },
   output: {
