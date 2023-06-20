@@ -19,7 +19,7 @@ public class GetPlaceLambda extends LambdaActivityRunner<GetPlaceRequest, GetPla
         return super.runActivity(
                 () -> input.fromPath(path ->
                         GetPlaceRequest.builder()
-                                .withId(path.get("placeId"))
+                                .withId(path.get("id"))
                                 .build()),
                 (request,serviceComponent) ->
                     serviceComponent.provideGetPlaceActivity().handleRequest(request)

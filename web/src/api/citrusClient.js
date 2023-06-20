@@ -92,10 +92,9 @@ export default class CitrusClient extends BindingClass {
     }
     
     async getPlace(placeId, errorCallback) {
-        try { 
-          const response = await this.axiosClient.get(`place/${placeId}`, {
-        });
-          return response.data;
+        try {
+          const response = await this.axiosClient.get(`place/${placeId}`);
+          return response.data; // Return the entire place object
         } catch (error) {
           this.handleError(error, errorCallback);
         }
@@ -108,7 +107,7 @@ export default class CitrusClient extends BindingClass {
      */
     async search(criteria, errorCallback) {
         try {
-          const queryParams = new URLSearchParams({ placeName : criteria });
+          const queryParams = new URLSearchParams({ placeId : criteria });
           const queryString = queryParams.toString();
           console.log(queryString);
       
@@ -125,18 +124,7 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
-
-
-      async getPlace(placeId,errorCallback){
-        try{
-            const response = await this.axiosClient.get(`place/${placeId}`)
-            return response.data.placeId;
-        } catch (error){
-            this.handleError(error,errorCallback);
-        }
-      }
       
-
       async updateUser(email, user, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can update their profile.");
