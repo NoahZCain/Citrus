@@ -47,8 +47,7 @@ class LandingPage extends BindingClass {
     async login(){
         await this.client.login();
     }
-
-
+    
     async searchForPlaces(criteria) {
         try {
           const queryParams = new URLSearchParams();
