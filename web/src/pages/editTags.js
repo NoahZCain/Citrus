@@ -80,12 +80,12 @@ class EditTags {
       event.preventDefault();
   
       const urlParams = new URLSearchParams(window.location.search);
-      const placeId = urlParams.get('placeId');
+      const placeIdToAddTags = urlParams.get('placeId');
       const addTagsInput = document.getElementById('addTags');
       const tagsToAdd = addTagsInput.value.split(',').map((tag) => tag.trim());
   
       if (tagsToAdd.length > 0) {
-        await self.addTags(placeId, tagsToAdd);
+        await self.addTags(placeIdToAddTags, tagsToAdd);
       }
     });
   
@@ -93,18 +93,18 @@ class EditTags {
       event.preventDefault();
   
       const urlParams = new URLSearchParams(window.location.search);
-      const placeId = urlParams.get('placeId');
+      const placeIdToRemoveTags = urlParams.get('placeId');
       const removeTagsInput = document.getElementById('removeTags');
       const tagsToRemove = removeTagsInput.value.split(',').map((tag) => tag.trim());
   
       if (tagsToRemove.length > 0) {
-        await self.removeTags(placeId, tagsToRemove);
+        await self.removeTags(placeIdToRemoveTags, tagsToRemove);
       }
     });
   
     // Set the action URL of the forms to preserve the placeId parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const placeId = urlParams.get('placeId');
+    const placeId = urlParams.get('id');
     addTagsForm.action = `editTags.html?placeId=${placeId}`;
     removeTagsForm.action = `editTags.html?placeId=${placeId}`;
   }

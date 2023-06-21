@@ -2,7 +2,10 @@ package com.nashss.se.citrusservice.activity;
 
 import com.nashss.se.citrusservice.activity.requests.RemoveAccessibilityTagsRequest;
 import com.nashss.se.citrusservice.activity.results.RemoveAccessibilityTagsResult;
+import com.nashss.se.citrusservice.converters.ModelConverter;
 import com.nashss.se.citrusservice.dynamodb.PlaceDao;
+import com.nashss.se.citrusservice.dynamodb.models.Place;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,10 +32,10 @@ public class RemoveAccessibilityTagsActivity {
 
         placeDao.getPlace(placeId);
 
-        Set<String> updatedList = placeDao.removeAccessibilityTagsFromPlace(placeId,tagsToRemove);
-        List<String> newList = new ArrayList<>(updatedList);
+       Place updatedPlace = placeDao.removeAccessibilityTagsFromPlace(placeId,tagsToRemove);
+        // List<String> newList = new ArrayList<>(updatedList);
         return RemoveAccessibilityTagsResult.builder()
-                .withPlaces(newList)
+                .withPlaceModel(new ModelConverter().toPlaceModel(updatedPlace))
                 .build();
 
     }

@@ -68,7 +68,7 @@ public class PlaceDao {
     }
 
 
-    public Set<String> removeAccessibilityTagsFromPlace (String placeId, Set<String> tagsToRemove){
+    public Place removeAccessibilityTagsFromPlace (String placeId, Set<String> tagsToRemove){
         if(placeId == null){
             throw new InvalidAttributeException("This place Does not exist");
         }
@@ -79,8 +79,9 @@ public class PlaceDao {
         existingTags.remove(s);
 
         }
+        place.setAccessibilityTags(existingTags);
         this.dynamoDBMapper.save(place);
-        return new HashSet<>(existingTags);
+        return place;
     }
 
 

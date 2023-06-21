@@ -171,7 +171,7 @@ export default class CitrusClient extends BindingClass {
           
           const payload = {
             placeId: placeId,
-            accessibilityTags: [tag]
+            accessibilityTags: tag
           };
       
           const response = await this.axiosClient.post('/place/addTags', payload, {
@@ -179,7 +179,7 @@ export default class CitrusClient extends BindingClass {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             },
-            data: { tag }
+            
           });
           console.log(response.data.accessibilityTags); 
        
@@ -199,14 +199,13 @@ export default class CitrusClient extends BindingClass {
           const token = await this.getTokenOrThrow("Only authenticated users can remove tags from a place.");
           const payload = {
             placeId: placeId,
-            accessibilityTags: [tag]
+            accessibilityTags: tag
           };
-          const response = await this.axiosClient.put(`/place/removeTags`,payload, {
+          const response = await this.axiosClient.put(`/place/removeTags`, payload, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
-            },
-            data: { tag }
+            }
           });
       
           console.log(response.data); // Handle the response as needed
@@ -214,6 +213,7 @@ export default class CitrusClient extends BindingClass {
           this.handleError(error, errorCallback);
         }
       }
+      
       handleError = (error, errorCallback) => {
         console.error(error);
     

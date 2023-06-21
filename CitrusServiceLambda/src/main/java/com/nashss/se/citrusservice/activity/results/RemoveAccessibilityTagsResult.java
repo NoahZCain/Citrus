@@ -6,35 +6,36 @@ import java.util.List;
 
 public class RemoveAccessibilityTagsResult {
 
-    private final List<String> placeList;
+    private final PlaceModel placeModel;
 
-    private RemoveAccessibilityTagsResult(List<String> placeList){
-        this.placeList = placeList;
+    private RemoveAccessibilityTagsResult(PlaceModel placeModel){
+        this.placeModel = placeModel;
     }
-
-    public List<String> getPlaceList() {
-        return placeList;
+      public PlaceModel getPlaceModel() {
+        return placeModel;
     }
 
     @Override
     public String toString() {
-        return "RemoveAccessibilityTagsResult{" +
-                "placeList=" + placeList +
+        return "AddAccessibilityTagsResult{" +
+                "placeModel=" + placeModel +
                 '}';
     }
 
     public static Builder builder(){
         return new Builder();
     }
-    public static class Builder{
-        private List<String> placeList;
 
-        public Builder withPlaces(List<String> placeList){
-            this.placeList = placeList;
+    public static class Builder{
+
+        private PlaceModel placeModel;
+
+        public Builder withPlaceModel(PlaceModel placeModel){
+            this.placeModel = placeModel;
             return this;
         }
         public RemoveAccessibilityTagsResult build(){
-            return new RemoveAccessibilityTagsResult(placeList);
+            return new RemoveAccessibilityTagsResult(placeModel);
         }
     }
 }

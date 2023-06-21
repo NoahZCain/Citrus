@@ -2,7 +2,7 @@ package com.nashss.se.citrusservice.activity.results;
 
 import com.nashss.se.citrusservice.models.PlaceModel;
 
-import java.util.Set;
+
 
 public class AddAccessibilityTagsResult {
 
