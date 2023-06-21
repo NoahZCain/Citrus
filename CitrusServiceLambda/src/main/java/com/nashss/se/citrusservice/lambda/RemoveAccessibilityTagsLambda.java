@@ -24,7 +24,7 @@ public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAc
                                  .withTagsToRemove(unauthenticatedRequest.getTagsToRemove())
                                  .build();
                  },
-                 (request, serviceComponent) ->
+                 (request, serviceComponent) -> 
                          serviceComponent.provideRemoveTagsActivity().handleRequest(request)
          );
     }

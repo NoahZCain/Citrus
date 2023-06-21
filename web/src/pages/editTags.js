@@ -47,16 +47,31 @@ class EditTags {
   }
 
   async removeTags(placeId, tags) {
-    try {
+  try {
+    const placeResponse = await this.client.getPlace(placeId);
+    const place = placeResponse.placesModel;
+
+    if (place && place.accessibilityInfo) {
+      place.accessibilityInfo = place.accessibilityInfo.filter(
+        (tag) => !tags.includes(tag)
+      );
+
+  
+      this.displayAccessibilityTags(placeId);
+
+     
       await this.client.removePlaceTag(placeId, tags, this.handleError);
       console.log(`Successfully removed tags: ${tags}`);
-
-      // Update the displayed tags
-      await this.displayAccessibilityTags(placeId);
-    } catch (error) {
-      console.error('Error removing tags:', error);
+    } else {
+      console.error('Invalid place or missing accessibility information');
     }
+  } catch (error) {
+    console.error('Error removing tags:', error);
   }
+}
+
+  
+  
 
   populateForm() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -102,9 +117,9 @@ class EditTags {
       }
     });
   
-    // Set the action URL of the forms to preserve the placeId parameter
+    
     const urlParams = new URLSearchParams(window.location.search);
-    const placeId = urlParams.get('id');
+    const placeId = urlParams.get('placeId');
     addTagsForm.action = `editTags.html?placeId=${placeId}`;
     removeTagsForm.action = `editTags.html?placeId=${placeId}`;
   }
