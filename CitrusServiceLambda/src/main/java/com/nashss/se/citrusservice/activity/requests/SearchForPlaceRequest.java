@@ -3,7 +3,7 @@ package com.nashss.se.citrusservice.activity.requests;
 public class SearchForPlaceRequest {
     private final String placeName;
 
-    private SearchForPlaceRequest(String placeName) {
+    public SearchForPlaceRequest(String placeName) {
         this.placeName = placeName;
     }
 
