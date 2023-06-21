@@ -14,7 +14,7 @@ public class UpdateUserRequest {
     private final String dateOfBirth;
     private final Set<String> userInterests;
 
-    private UpdateUserRequest(String userId,String firstName,String lastName, String gender,String dateOfBirth,Set<String> userInterests){
+    public UpdateUserRequest(String userId, String firstName, String lastName, String gender, String dateOfBirth, Set<String> userInterests){
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
