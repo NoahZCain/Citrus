@@ -7,7 +7,8 @@ class ViewUser extends BindingClass {
   constructor() {
     super();
     this.bindClassMethods(
-      ["clientLoaded", "mount", "logout", "redirectEditUser"],
+      ["clientLoaded", "mount", "logout", "redirectEditUser",
+    "redirectLandingPage"],
       this
     );
     this.dataStore = new DataStore();
@@ -45,6 +46,7 @@ class ViewUser extends BindingClass {
     
     document.getElementById("logout").addEventListener("click", this.logout);
     document.getElementById("editProfileButton").addEventListener("click", this.redirectEditUser);
+    document.getElementById("backToLanding").addEventListener("click", this.redirectLandingPage);
   }
 
   async addName() {
@@ -117,8 +119,12 @@ class ViewUser extends BindingClass {
     }
   }
 
-  async redirectEditUser() {
+  redirectEditUser() {
     window.location.href = "/editUser.html";
+  }
+
+  redirectLandingPage() {
+    window.location.href = "/homePage.html";
   }
 }
 

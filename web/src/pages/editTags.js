@@ -1,78 +1,125 @@
-import CitrusClient from "../api/citrusClient";
-import BindingClass from "./util/bindingClass";
-import DataStore from "./util/DataStore";
+import CitrusClient from "../api/citrusClient.js";
+import DataStore from "./util/DataStore.js";
 
-class EditTags extends BindingClass {
+class EditTags {
   constructor() {
-    super();
-    this.bindClassMethods(['updateTags', 'mount', 'populateForm'], this);
     this.dataStore = new DataStore();
     this.client = new CitrusClient();
   }
 
   async displayAccessibilityTags(placeId) {
+    try {
+      const placeResponse = await this.client.getPlace(placeId);
+      const place = placeResponse.placesModel;
+
+      if (place && place.accessibilityInfo) {
+        const tagsList = document.getElementById('tagsList');
+
+        tagsList.innerHTML = '';
+
+        place.accessibilityInfo.forEach((tag) => {
+          const li = document.createElement('li');
+          li.textContent = tag;
+          tagsList.appendChild(li);
+        });
+      } else {
+        
+        console.error('Invalid place or missing accessibility information');
+      }
+    } catch (error) {
+      console.error('Error displaying place details:', error);
+    }
+  }
+
+  async addTags(placeId, tags) {
+    try {
+      await this.client.addPlaceTag(placeId, tags, this.handleError);
+      console.log(`Successfully added tags: ${tags}`);
+      console.log(placeId,tags);
+
+      await this.displayAccessibilityTags(placeId);
+    } catch (error) {
+      console.error('Error adding tags:', error);
+    }
+  }
+
+  async removeTags(placeId, tags) {
+  try {
     const placeResponse = await this.client.getPlace(placeId);
     const place = placeResponse.placesModel;
 
-    if (place) {
-      const tagsList = document.getElementById('tagsList');
+    if (place && place.accessibilityInfo) {
+      place.accessibilityInfo = place.accessibilityInfo.filter(
+        (tag) => !tags.includes(tag)
+      );
 
-      // Clear existing tags
-      tagsList.innerHTML = '';
-
-      // Display the current tags
-      place.accessibilityInfo.forEach((tag) => {
-        const li = document.createElement('li');
-        li.textContent = tag;
-        tagsList.appendChild(li);
-      });
-    }
-  }
-
-  async updateTags() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const placeId = urlParams.get('placeId');
-
-    const tagsToAddInput = document.getElementById('addTags');
-    const tagsToRemoveInput = document.getElementById('removeTags');
-
-    const tagsToAdd = tagsToAddInput.value.split(',').map((tag) => tag.trim());
-    const tagsToRemove = tagsToRemoveInput.value.split(',').map((tag) => tag.trim());
-
-    try {
-      if (tagsToAdd.length > 0) {
-        await this.client.addPlaceTag(placeId, tagsToAdd);
-        console.log(`Successfully added tags: ${tagsToAdd}`);
-      }
-
-      if (tagsToRemove.length > 0) {
-        await this.client.removePlaceTag(placeId, tagsToRemove);
-        console.log(`Successfully removed tags: ${tagsToRemove}`);
-      }
-
-      // Update the displayed tags
+      
+      await this.client.removePlaceTag(placeId, tags, this.handleError);
       await this.displayAccessibilityTags(placeId);
-    } catch (error) {
-      console.error('Error updating tags:', error);
+      console.log(`Successfully removed tags: ${tags}`);
+    } else {
+      console.error('Invalid place or missing accessibility information');
     }
-  }
-
-  populateForm() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const placeId = urlParams.get('placeId');
-    
-    // Display the current tags
-    this.displayAccessibilityTags(placeId);
-  }
-
-  mount() {
-    document.getElementById("tagsForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      this.updateTags();
-    });
+  } catch (error) {
+    console.error('Error removing tags:', error);
   }
 }
 
+  
+  
+
+  populateForm() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlParams.entries());
+    const placeId = params.placeId;
+  
+    if (placeId) {
+      // Display the current tags
+      this.displayAccessibilityTags(placeId);
+    } else {
+      console.error('Missing placeId in URL parameters');
+    }
+  }
+
+  mount() {
+    const addTagsForm = document.getElementById('addTagsForm');
+    const removeTagsForm = document.getElementById('removeTagsForm');
+    const self = this;
+  
+    addTagsForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
+  
+      const urlParams = new URLSearchParams(window.location.search);
+      const placeIdToAddTags = urlParams.get('placeId');
+      const addTagsInput = document.getElementById('addTags');
+      const tagsToAdd = addTagsInput.value.split(',').map((tag) => tag.trim());
+  
+      if (tagsToAdd.length > 0) {
+        await self.addTags(placeIdToAddTags, tagsToAdd);
+      }
+    });
+  
+    removeTagsForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
+  
+      const urlParams = new URLSearchParams(window.location.search);
+      const placeIdToRemoveTags = urlParams.get('placeId');
+      const removeTagsInput = document.getElementById('removeTags');
+      const tagsToRemove = removeTagsInput.value.split(',').map((tag) => tag.trim());
+  
+      if (tagsToRemove.length > 0) {
+        await self.removeTags(placeIdToRemoveTags, tagsToRemove);
+      }
+    });
+  
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const placeId = urlParams.get('placeId');
+    addTagsForm.action = `editTags.html?placeId=${placeId}`;
+    removeTagsForm.action = `editTags.html?placeId=${placeId}`;
+  }
+  
+}  
 const main = async () => {
   const editTags = new EditTags();
  
@@ -80,4 +127,4 @@ const main = async () => {
   editTags.mount();
 };
 
-window.addEventListener("DOMContentLoaded", main);
+window.addEventListener('DOMContentLoaded', main);
