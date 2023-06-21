@@ -93,9 +93,9 @@ export default class CitrusClient extends BindingClass {
     
     async getPlace(placeId, errorCallback) {
         try {
-          console.log(placeId + "placeId");
+       
           const response = await this.axiosClient.get(`place/${placeId}`);
-          return response.data; // Return the entire place object
+          return response.data;  
         } catch (error) {
           this.handleError(error, errorCallback);
         }
@@ -181,7 +181,7 @@ export default class CitrusClient extends BindingClass {
             },
             
           });
-           
+           console.log(response.data);
        
         } catch (error) {
           
@@ -196,10 +196,12 @@ export default class CitrusClient extends BindingClass {
       async removePlaceTag(placeId, tag, errorCallback) {
         try {
           const token = await this.getTokenOrThrow("Only authenticated users can remove tags from a place.");
+
           const payload = {
             placeId: placeId,
-            accessibilityTags: tag 
+            tagsToRemove: tag 
           };
+
           const response = await this.axiosClient.put(`/place/removeTags`, payload, {
             headers: {
               Authorization: `Bearer ${token}`,

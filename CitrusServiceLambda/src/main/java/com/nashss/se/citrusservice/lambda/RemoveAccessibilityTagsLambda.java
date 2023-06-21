@@ -17,15 +17,23 @@ public class RemoveAccessibilityTagsLambda extends LambdaActivityRunner<RemoveAc
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<RemoveAccessibilityTagsRequest> input, Context context) {
          return super.runActivity(
                  () -> {
-
                      RemoveAccessibilityTagsRequest unauthenticatedRequest = input.fromBody(RemoveAccessibilityTagsRequest.class);
-                 return RemoveAccessibilityTagsRequest.builder()
-                                 .withPlaceId(unauthenticatedRequest.getPlaceId())
-                                 .withTagsToRemove(unauthenticatedRequest.getTagsToRemove())
-                                 .build();
+                        return RemoveAccessibilityTagsRequest.builder()
+                         .withPlaceId(unauthenticatedRequest.getPlaceId())
+                         .withTagsToRemove(unauthenticatedRequest.getTagsToRemove())
+                         .build();
                  },
-                 (request, serviceComponent) -> 
-                         serviceComponent.provideRemoveTagsActivity().handleRequest(request)
+                 (request, serviceComponent) -> {
+                     try {
+                         return serviceComponent.provideRemoveTagsActivity().handleRequest(request);
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                         return serviceComponent.provideRemoveTagsActivity().handleRequest(request);
+                     }
+                 }
          );
     }
 }
+
+
+

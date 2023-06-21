@@ -15,17 +15,15 @@ class EditTags {
       if (place && place.accessibilityInfo) {
         const tagsList = document.getElementById('tagsList');
 
-        // Clear existing tags
         tagsList.innerHTML = '';
 
-        // Display the current tags
         place.accessibilityInfo.forEach((tag) => {
           const li = document.createElement('li');
           li.textContent = tag;
           tagsList.appendChild(li);
         });
       } else {
-        // Handle the case when place or place.accessibilityInfo is null
+        
         console.error('Invalid place or missing accessibility information');
       }
     } catch (error) {
@@ -39,7 +37,6 @@ class EditTags {
       console.log(`Successfully added tags: ${tags}`);
       console.log(placeId,tags);
 
-      // Update the displayed tags
       await this.displayAccessibilityTags(placeId);
     } catch (error) {
       console.error('Error adding tags:', error);
@@ -56,11 +53,9 @@ class EditTags {
         (tag) => !tags.includes(tag)
       );
 
-  
-      this.displayAccessibilityTags(placeId);
-
-     
+      
       await this.client.removePlaceTag(placeId, tags, this.handleError);
+      await this.displayAccessibilityTags(placeId);
       console.log(`Successfully removed tags: ${tags}`);
     } else {
       console.error('Invalid place or missing accessibility information');
