@@ -45,6 +45,10 @@ class ViewPlace extends BindingClass {
     } catch (error) {
       console.error('Error displaying place details:', error);
     }
+    const backButton = document.getElementById('backButton');
+    backButton.addEventListener('click', () => {
+      history.back(); // Navigate back to the previous page
+    });
   }
   
 }
