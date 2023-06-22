@@ -37,8 +37,8 @@ class SearchResults extends BindingClass {
           const moreInfoButton = document.createElement('button');
           moreInfoButton.textContent = 'More Info';
           moreInfoButton.addEventListener('click', () => {
-            // Redirect to the "viewPlace" page with the place ID or other relevant information
-            window.location.href = `/viewPlace.html?id=${place.placeId}`;
+
+           window.location.href = `/viewPlace.html?id=${place.placeId}`;
           });
           placeAttributes.appendChild(moreInfoButton);
   
@@ -56,7 +56,7 @@ class SearchResults extends BindingClass {
   }
 }
 
-// Retrieve the search criteria from the query parameters
+
 const urlParams = new URLSearchParams(window.location.search);
 const searchCriteria = urlParams.get('criteria');
 

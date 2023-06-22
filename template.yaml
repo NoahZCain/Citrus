@@ -380,6 +380,8 @@ Resources:
           Properties:
             Path: /place/search
             Method: get
+            Auth:
+              Authorizer: 'NONE'
   #-----------------------------------------------------
   # DynamoDB Configuration
   #-----------------------------------------------------

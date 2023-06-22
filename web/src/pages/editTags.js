@@ -84,6 +84,7 @@ class EditTags {
   mount() {
     const addTagsForm = document.getElementById('addTagsForm');
     const removeTagsForm = document.getElementById('removeTagsForm');
+    const backButton = document.getElementById('backButton');
     const self = this;
   
     addTagsForm.addEventListener('submit', async function(event) {
@@ -112,12 +113,15 @@ class EditTags {
       }
     });
   
-    
+    backButton.addEventListener('click', () => {
+      history.back(); // Navigate back to the previous page
+    });
     const urlParams = new URLSearchParams(window.location.search);
     const placeId = urlParams.get('placeId');
     addTagsForm.action = `editTags.html?placeId=${placeId}`;
     removeTagsForm.action = `editTags.html?placeId=${placeId}`;
   }
+  
   
 }  
 const main = async () => {
