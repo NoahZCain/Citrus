@@ -12,6 +12,8 @@ public class UserModel {
     private final Set<String> interests;
 
 
+
+
     public UserModel(String userId, String firstName,
                      String lastName,
                      String gender, String dateOfBirth,
@@ -22,6 +24,7 @@ public class UserModel {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.interests = interests;
+
 
     }
 
